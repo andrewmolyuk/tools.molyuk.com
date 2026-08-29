@@ -64,6 +64,28 @@ function recolor(svg: string, placeholderHex: string | null, hex: string): strin
   return svg.split(placeholderHex).join(hex)
 }
 
+/**
+ * Flatten the eyebrow to an opaque colour: 60% black pre-blended over the skin.
+ *
+ * The source draws every eyebrow as black at 60% opacity. Over the cheek that
+ * gives the intended soft brown, but the tall eyes (Surprised, Wink Wacky)
+ * reach up under the brow, and there the white of the eye bleeds through as a
+ * grey patch. Pre-blending against the skin keeps exactly the colour the
+ * designer intended while making the brow opaque, so it reads the same
+ * wherever it lands. (The reference implementation has this artefact too.)
+ */
+function flattenEyebrow(svg: string, skinHex: string): string {
+  const channel = (i: number) =>
+    Math.round(parseInt(skinHex.slice(1 + i * 2, 3 + i * 2), 16) * 0.4)
+      .toString(16)
+      .padStart(2, '0')
+  const hex = `#${channel(0)}${channel(1)}${channel(2)}`
+  return svg
+    .split('fill-opacity="0.599999964"')
+    .join('fill-opacity="1"')
+    .split('fill="#000000"')
+    .join(`fill="${hex}"`)
+}
 
 export function assembleAvatarSvg(config: AvatarConfig): string {
   const skin = byId(SKIN_TONES, config.skinId)
@@ -84,6 +106,7 @@ export function assembleAvatarSvg(config: AvatarConfig): string {
   const clothesSvg = recolor(clothes.svg, clothes.placeholderHex, clothColor.hex)
   const topSvg = recolor(top.svg, top.placeholderHex, hairColor.hex)
   const facialHairSvg = recolor(facialHair.svg, facialHair.placeholderHex, hairColor.hex)
+  const eyebrowSvg = flattenEyebrow(eyebrow.svg, skin.hex)
 
   // matches Avatar/Circle.svg: circle r=120 inside a translate(12, 40) group
   const bg =
@@ -121,7 +144,7 @@ export function assembleAvatarSvg(config: AvatarConfig): string {
     `<g transform="translate(2, 52)">${mouth.svg}</g>` +
     `<g transform="translate(28, 40)">${nose.svg}</g>` +
     `<g transform="translate(0, 8)">${eyes.svg}</g>` +
-    `<g>${eyebrow.svg}</g>` +
+    `<g>${eyebrowSvg}</g>` +
     `</g>` +
     `<g transform="translate(-1, 0)">${topSvg}</g>` +
     `<g transform="translate(48, 72)">${facialHairSvg}</g>` +

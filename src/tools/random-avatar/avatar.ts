@@ -82,7 +82,8 @@ export function assembleAvatarSvg(config: AvatarConfig): string {
   const topSvg = recolor(top.svg, top.placeholderHex, hairColor.hex)
   const facialHairSvg = recolor(facialHair.svg, facialHair.placeholderHex, hairColor.hex)
 
-  const bg = config.background ? `<circle cx="132" cy="140" r="132" fill="${bgColor.hex}"/>` : ''
+  // matches Avatar/Circle.svg: circle r=120 inside a translate(12, 40) group
+  const bg = config.background ? `<circle cx="132" cy="160" r="120" fill="${bgColor.hex}"/>` : ''
 
   return (
     `<svg width="264" height="280" viewBox="0 0 264 280" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">` +

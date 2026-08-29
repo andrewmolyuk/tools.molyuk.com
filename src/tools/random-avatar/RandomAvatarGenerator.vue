@@ -68,24 +68,34 @@ function downloadSvg() {
   downloadText('avatar.svg', svgMarkup.value)
 }
 
-function downloadPng() {
-  const svg = svgMarkup.value
-  const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' })
-  const url = URL.createObjectURL(svgBlob)
-  const img = new Image()
-  img.onload = () => {
-    const scale = 4
-    const canvas = document.createElement('canvas')
-    canvas.width = 264 * scale
-    canvas.height = 280 * scale
-    const ctx = canvas.getContext('2d')
-    if (ctx) ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-    URL.revokeObjectURL(url)
-    canvas.toBlob((blob) => {
-      if (blob) downloadBlob('avatar.png', blob)
-    }, 'image/png')
-  }
-  img.src = url
+/** Rasterize the current avatar; used by both the PNG download and the copy. */
+function renderPng(scale = 4): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(
+      new Blob([svgMarkup.value], { type: 'image/svg+xml;charset=utf-8' }),
+    )
+    const img = new Image()
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      canvas.width = 264 * scale
+      canvas.height = 280 * scale
+      canvas.getContext('2d')?.drawImage(img, 0, 0, canvas.width, canvas.height)
+      URL.revokeObjectURL(url)
+      canvas.toBlob(
+        (blob) => (blob ? resolve(blob) : reject(new Error('canvas.toBlob returned null'))),
+        'image/png',
+      )
+    }
+    img.onerror = () => {
+      URL.revokeObjectURL(url)
+      reject(new Error('could not rasterize the avatar'))
+    }
+    img.src = url
+  })
+}
+
+async function downloadPng() {
+  downloadBlob('avatar.png', await renderPng())
 }
 
 const selectClass =
@@ -143,7 +153,7 @@ const checkClass = 'h-3 w-3 shrink-0 cursor-pointer'
           >
             {{ t('tools.randomAvatar.downloadSvg') }}
           </button>
-          <CopyButton :text="svgMarkup" />
+          <CopyButton :text="svgMarkup" :image="renderPng" />
         </div>
       </div>
 

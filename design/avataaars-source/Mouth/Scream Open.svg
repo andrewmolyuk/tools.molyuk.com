@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="108px" height="44px" viewBox="0 0 108 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Mouth/Scream Open</title>
+    <defs>
+        <path d="M34.0082051,15.1361102 C35.1280248,29.123916 38.2345159,40.9925405 53.9961505,40.9999965 C69.757785,41.0074525 72.9169073,29.0566179 73.9942614,15.0063928 C74.0809675,13.8756222 73.1738581,12.9999965 72.0369872,12.9999965 C65.3505138,12.9999965 62.6703194,14.9936002 53.9894323,14.9999965 C45.3085452,15.0063928 40.7567994,12.9999965 36.0924943,12.9999965 C34.9490269,12.9999965 33.8961688,13.7366502 34.0082051,15.1361102 Z" id="path-1"></path>
+    </defs>
+    <g id="Mouth/Scream-Open" stroke="none" fill="none">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1" transform="translate(54, 27) scale(1, -1) translate(-54, -27)"></use>
+        </mask>
+        <use id="Mouth" fill-opacity="0.699999988" fill="#000000" fill-rule="evenodd" transform="translate(54, 27) scale(1, -1) translate(-54, -27)" xlink:href="#path-1"></use>
+        <rect id="Teeth" fill="#FFFFFF" fill-rule="evenodd" mask="url(#mask-2)" x="39" y="2" width="31" height="16" rx="5"></rect>
+        <g id="Tongue" stroke-width="1" fill-rule="evenodd" mask="url(#mask-2)" fill="#FF4F6D">
+            <g transform="translate(38, 32)" id="Say-ahhhh">
+                <circle cx="11" cy="11" r="11"></circle>
+                <circle cx="21" cy="11" r="11"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

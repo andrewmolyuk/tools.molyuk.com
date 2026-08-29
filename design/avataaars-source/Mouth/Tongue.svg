@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="108px" height="44px" viewBox="0 0 108 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Mouth/Tongue</title>
+    <defs>
+        <path d="M29,15.6086957 C30.410031,25.2313711 41.062182,33 54,33 C66.9681454,33 77.6461342,25.183301 79,14.7391304 C79.1012093,14.3397326 78.775269,13 76.826087,13 C56.838426,13 41.7395748,13 31.173913,13 C29.3833142,13 28.870211,14.2404669 29,15.6086957 Z" id="path-1"></path>
+    </defs>
+    <g id="Mouth/Tongue" stroke="none" fill="none">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Mouth" fill-opacity="0.699999988" fill="#000000" fill-rule="evenodd" xlink:href="#path-1"></use>
+        <rect id="Teeth" fill="#FFFFFF" fill-rule="evenodd" mask="url(#mask-2)" x="39" y="2" width="31" height="16" rx="5"></rect>
+        <path d="M59.5,20 C63.0898509,20 66,21.5670034 66,23.5 C66,23.5829439 65.9946418,23.6652139 65.9841015,23.7467151 C65.9945755,23.8293228 66,23.9140279 66,24 L66,33 C66,39.0751322 61.0751322,44 55,44 L54,44 C47.9248678,44 43,39.0751322 43,33 L43,24 C43,23.9140279 43.0054245,23.8293228 43.0159499,23.7462082 C43.0053582,23.6652139 43,23.5829439 43,23.5 C43,21.5670034 45.9101491,20 49.5,20 C51.5111815,20 53.3090251,20.4918353 54.5013226,21.2643168 C55.6919663,20.4915641 57.489373,20 59.5,20 Z" id="Tongue" fill="#FF4F6D" fill-rule="evenodd"></path>
+    </g>
+</svg>

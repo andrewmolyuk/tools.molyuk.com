@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="266px" height="280px" viewBox="0 0 266 280" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Top/Accessories/Winter Hat 3</title>
+    <defs>
+        <path d="M66,0 C102.450793,0 132,29.5492065 132,66 L132,71 L132,71 L0,71 L0,66 C0,29.5492065 29.5492065,0 66,0 Z" id="path-1"></path>
+        <path d="M67.2831715,61.4524654 C83.2283986,49.8174885 105.158345,44 133.073012,44 C160.98403,44 182.86943,49.8159681 198.729211,61.4479044 L198.729937,61.4469139 C200.785559,62.9538936 202.000058,65.3502108 202,67.8990479 L202,98.3736572 C201.999132,100.582796 200.207568,102.372954 197.998429,102.372086 C197.243619,102.37179 196.504296,102.15793 195.86589,101.755218 C179.224574,91.2511861 158.537036,86 133.804323,86 C108.884512,86 87.6425297,91.3309351 70.0783764,101.992805 L70.0776323,101.991581 C68.1898648,103.139026 65.7293393,102.538876 64.5818947,100.651108 C64.2013113,100.024975 64.0000243,99.3063335 64,98.5736084 L64,67.9144287 C64.0001613,65.3599175 65.2202494,62.9590777 67.2836125,61.4530696 Z" id="path-3"></path>
+        <filter x="-0.7%" y="-1.7%" width="101.4%" height="106.8%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Top/Accessories/Winter-Hat-3" stroke="none" fill="none">
+        <g id="hat" stroke-width="1" fill-rule="evenodd" transform="translate(67, 12)">
+            <circle id="puff" fill="#F4F4F4" cx="66" cy="8" r="20"></circle>
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="hat-mask" fill="#D8D8D8" xlink:href="#path-1"></use>
+            <g id="🎨-Hat-Color" mask="url(#mask-2)" fill="#FF5C5C">
+                <g transform="translate(-3.7714, -12)" id="🖍Color">
+                    <rect x="0" y="0" width="140.485714" height="191"></rect>
+                </g>
+            </g>
+        </g>
+        <g id="hat-front">
+            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+            <use fill="#F4F4F4" fill-rule="evenodd" xlink:href="#path-3"></use>
+        </g>
+        <g id="Facial-Hair" transform="translate(49, 72)"></g>
+        <g id="↳-👓-Accessory" transform="translate(62, 85)"></g>
+    </g>
+</svg>

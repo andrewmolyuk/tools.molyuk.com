@@ -97,6 +97,16 @@ const checkClass = 'h-3 w-3 shrink-0 cursor-pointer'
 
 <template>
   <ToolPage :title="t('tools.randomAvatar.name')" :description="t('tools.randomAvatar.description')">
+    <template #description>
+      {{ t('tools.randomAvatar.description') }} {{ t('tools.randomAvatar.credit') }}
+      <a
+        href="https://x.com/pablostanley"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-accent hover:underline"
+        >Pablo Stanley</a
+      >
+    </template>
     <div class="flex flex-col gap-6 lg:flex-row">
       <div
         class="flex shrink-0 flex-col items-center gap-3 self-start border border-line bg-panel p-5"

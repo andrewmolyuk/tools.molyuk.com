@@ -1,4 +1,5 @@
 export type CategoryId = 'identifiers' | 'encoding' | 'network'
+export type ComputeLocation = 'client' | 'edge'
 
 export interface ToolMeta {
   slug: string
@@ -6,4 +7,5 @@ export interface ToolMeta {
   descriptionKey: string
   categoryId: CategoryId
   order: number
+  compute: ComputeLocation
 }

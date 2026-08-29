@@ -6,7 +6,8 @@ export const meta: ToolMeta = {
   nameKey: 'tools.ipList.name',
   descriptionKey: 'tools.ipList.description',
   categoryId: 'network',
-  order: 5,
+  order: 6,
+  compute: 'client',
 }
 
 export const component = defineAsyncComponent(() => import('./IpListGenerator.vue'))

@@ -6,7 +6,8 @@ export const meta: ToolMeta = {
   nameKey: 'tools.sipUri.name',
   descriptionKey: 'tools.sipUri.description',
   categoryId: 'network',
-  order: 6,
+  order: 7,
+  compute: 'client',
 }
 
 export const component = defineAsyncComponent(() => import('./SipUriGenerator.vue'))

@@ -7,6 +7,7 @@ export const meta: ToolMeta = {
   descriptionKey: 'tools.macAddress.description',
   categoryId: 'identifiers',
   order: 2,
+  compute: 'client',
 }
 
 export const component = defineAsyncComponent(() => import('./MacAddressGenerator.vue'))

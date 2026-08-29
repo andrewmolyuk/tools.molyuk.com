@@ -6,11 +6,12 @@ export const messages = {
       copy: 'Копировать',
       copied: 'Скопировано',
       generate: 'Сгенерировать',
+      refresh: 'Обновить',
       inputPlaceholder: 'Введите данные…',
     },
     app: {
       kicker: 'Утилиты разработчика · список',
-      badge: 'Работает локально · без бэкенда',
+      badge: 'Без слежки · без хранения',
       filterPlaceholder: 'Фильтр инструментов',
       noResults: 'Ничего не найдено',
       theme: { label: 'Тема', light: 'Свет', dark: 'Тьма', auto: 'Авто' },
@@ -23,13 +24,14 @@ export const messages = {
       category: 'Категория',
       compute: 'Вычисление',
       computeValue: 'в браузере',
+      computeValueEdge: 'на edge (Cloudflare)',
       overview: 'Обзор',
       none: '—',
     },
     home: {
       title: 'Повседневные инструменты для тех, кто разрабатывает',
       description:
-        'Идентификаторы, кодировки, хэши и сетевые списки. Всё считается в браузере — ничего не выгружается и не сохраняется.',
+        'Идентификаторы, кодировки, хэши и сетевые списки. Большинство инструментов считается прямо в браузере — ничего не сохраняется.',
       index: 'Список',
       open: 'Открыть',
     },
@@ -103,6 +105,15 @@ export const messages = {
         cidrOptional: 'CIDR (опционально)',
         port: 'Порт',
       },
+      myIp: {
+        name: 'Мой IP',
+        description:
+          'Публичный IP-адрес, который видит сервер — удобно проверить текущий выход через VPN/прокси',
+        yourIp: 'Ваш IP-адрес',
+        country: 'Страна (по данным Cloudflare)',
+        loading: 'Определяем…',
+        error: 'Не удалось определить IP. Доступно только на задеплоенном сайте (нужен Cloudflare Worker).',
+      },
     },
     errors: {
       invalidInput: 'Некорректный ввод',
@@ -122,11 +133,12 @@ export const messages = {
       copy: 'Copy',
       copied: 'Copied',
       generate: 'Generate',
+      refresh: 'Refresh',
       inputPlaceholder: 'Enter data…',
     },
     app: {
       kicker: 'Developer utilities · index',
-      badge: 'Runs locally · no backend',
+      badge: 'No tracking · no storage',
       filterPlaceholder: 'Filter tools',
       noResults: 'Nothing found',
       theme: { label: 'Theme', light: 'Light', dark: 'Dark', auto: 'Auto' },
@@ -139,13 +151,14 @@ export const messages = {
       category: 'Category',
       compute: 'Compute',
       computeValue: 'client-side',
+      computeValueEdge: 'edge (Cloudflare)',
       overview: 'Overview',
       none: '—',
     },
     home: {
       title: 'Everyday utilities for people who ship',
       description:
-        'Identifiers, encodings, hashes and network lists. Everything runs in your browser — nothing is uploaded or stored.',
+        'Identifiers, encodings, hashes and network lists. Most tools run right in your browser — nothing is stored.',
       index: 'Index',
       open: 'Open',
     },
@@ -218,6 +231,15 @@ export const messages = {
         domainIp: 'Domain / IP',
         cidrOptional: 'CIDR (optional)',
         port: 'Port',
+      },
+      myIp: {
+        name: 'What is my IP',
+        description:
+          'The public IP address the server sees — handy to check your current VPN/proxy exit',
+        yourIp: 'Your IP address',
+        country: 'Country (via Cloudflare)',
+        loading: 'Detecting…',
+        error: 'Could not detect your IP. Only works on the deployed site (needs the Cloudflare Worker).',
       },
     },
     errors: {

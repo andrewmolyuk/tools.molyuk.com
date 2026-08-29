@@ -7,6 +7,7 @@ export const meta: ToolMeta = {
   descriptionKey: 'tools.base64.description',
   categoryId: 'encoding',
   order: 3,
+  compute: 'client',
 }
 
 export const component = defineAsyncComponent(() => import('./Base64Tool.vue'))

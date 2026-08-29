@@ -184,7 +184,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
             <div class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">
               {{ t('header.compute') }}
             </div>
-            <div class="mt-1 font-mono text-xs">{{ t('header.computeValue') }}</div>
+            <div class="mt-1 font-mono text-xs">
+              {{ t(activeTool?.meta.compute === 'edge' ? 'header.computeValueEdge' : 'header.computeValue') }}
+            </div>
           </div>
         </div>
       </header>

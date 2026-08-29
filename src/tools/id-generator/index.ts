@@ -7,6 +7,7 @@ export const meta: ToolMeta = {
   descriptionKey: 'tools.idGenerator.description',
   categoryId: 'identifiers',
   order: 1,
+  compute: 'client',
 }
 
 export const component = defineAsyncComponent(() => import('./IdGenerator.vue'))

@@ -7,6 +7,7 @@ export const meta: ToolMeta = {
   descriptionKey: 'tools.hash.description',
   categoryId: 'encoding',
   order: 4,
+  compute: 'client',
 }
 
 export const component = defineAsyncComponent(() => import('./HashGenerator.vue'))

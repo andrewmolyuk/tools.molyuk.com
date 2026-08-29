@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ToolPage from '../../components/ToolPage.vue'
+import ToolPanel from '../../components/ToolPanel.vue'
+import OutputBar from '../../components/OutputBar.vue'
 import CopyButton from '../../components/CopyButton.vue'
 import { MAX_RANDOM, clamp } from '../ip-list/ip'
 
@@ -36,60 +38,57 @@ generate()
 </script>
 
 <template>
-  <ToolPage
-    title="MAC-адрес генератор"
-    description="Случайные unicast MAC-адреса"
-  >
-    <div class="flex flex-wrap items-end gap-4">
-      <label class="flex flex-col gap-1 text-sm text-slate-600 dark:text-slate-300">
-        Количество
+  <ToolPage title="MAC-адрес генератор" description="Случайные unicast MAC-адреса">
+    <ToolPanel>
+      <label class="flex flex-col gap-1.5">
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Количество</span>
         <input
           v-model.number="count"
           type="number"
           min="1"
           :max="MAX_RANDOM"
-          class="w-24 rounded-md border border-slate-300 px-2 py-1 text-sm dark:border-slate-700 dark:bg-slate-900"
+          class="w-[88px] border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         />
       </label>
-      <label class="flex flex-col gap-1 text-sm text-slate-600 dark:text-slate-300">
-        Разделитель
+      <label class="flex flex-col gap-1.5">
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Разделитель</span>
         <select
           v-model="separator"
-          class="rounded-md border border-slate-300 px-2 py-1 text-sm dark:border-slate-700 dark:bg-slate-900"
+          class="border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         >
-          <option value="colon">Двоеточие (aa:bb:cc)</option>
-          <option value="hyphen">Дефис (aa-bb-cc)</option>
-          <option value="none">Без разделителя (aabbcc)</option>
+          <option value="colon">Двоеточие · aa:bb:cc</option>
+          <option value="hyphen">Дефис · aa-bb-cc</option>
+          <option value="none">Без разделителя · aabbcc</option>
         </select>
       </label>
-      <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-        <input v-model="uppercase" type="checkbox" class="rounded" />
-        ЗАГЛАВНЫЕ
+      <label class="flex items-center gap-2 pb-2 text-[13px]">
+        <input v-model="uppercase" type="checkbox" class="h-3.5 w-3.5" />
+        Заглавные
       </label>
-      <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-        <input v-model="locallyAdministered" type="checkbox" class="rounded" />
+      <label class="flex items-center gap-2 pb-2 text-[13px]">
+        <input v-model="locallyAdministered" type="checkbox" class="h-3.5 w-3.5" />
         Локально администрируемый (U/L бит)
       </label>
       <button
         type="button"
-        class="cursor-pointer rounded-md bg-slate-900 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
+        class="ml-auto cursor-pointer border border-accent bg-accent px-[18px] py-2 font-mono text-[11px] tracking-[.12em] text-onaccent uppercase transition hover:opacity-90"
         @click="generate"
       >
         Сгенерировать
       </button>
-    </div>
+    </ToolPanel>
 
-    <div class="space-y-2">
+    <OutputBar :copy-text="results.length > 1 ? results.join('\n') : undefined" />
+    <div class="max-h-[420px] overflow-y-auto border border-line bg-panel">
       <div
         v-for="(mac, i) in results"
         :key="i"
-        class="flex items-center justify-between gap-3 rounded-md border border-slate-200 px-3 py-2 font-mono text-sm dark:border-slate-800"
+        class="grid grid-cols-[34px_minmax(0,1fr)_auto] items-center gap-3 border-b border-hair px-3.5 py-2.5 last:border-b-0 hover:bg-paper"
       >
-        <span class="truncate">{{ mac }}</span>
+        <span class="font-mono text-[10px] text-mute">{{ String(i + 1).padStart(2, '0') }}</span>
+        <span class="truncate font-mono text-[13px]">{{ mac }}</span>
         <CopyButton :text="mac" />
       </div>
     </div>
-
-    <CopyButton v-if="results.length > 1" :text="results.join('\n')" />
   </ToolPage>
 </template>

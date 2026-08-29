@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ToolPage from '../../components/ToolPage.vue'
-import CopyButton from '../../components/CopyButton.vue'
+import ToolPanel from '../../components/ToolPanel.vue'
+import OutputBar from '../../components/OutputBar.vue'
 import {
   MAX_RANDOM,
   MAX_RANGE,
@@ -91,84 +92,79 @@ function generate() {
     title="Генератор списков IP"
     description="IPv4 / IPv6 — диапазон по CIDR или случайные адреса"
   >
-    <div class="flex flex-wrap items-end gap-4">
-      <label class="flex flex-col gap-1 text-sm text-slate-600 dark:text-slate-300">
-        Версия
+    <ToolPanel>
+      <label class="flex flex-col gap-1.5">
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Версия</span>
         <select
           v-model="version"
-          class="rounded-md border border-slate-300 px-2 py-1 text-sm dark:border-slate-700 dark:bg-slate-900"
+          class="border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         >
           <option value="v4">IPv4</option>
           <option value="v6">IPv6</option>
         </select>
       </label>
-      <label class="flex flex-col gap-1 text-sm text-slate-600 dark:text-slate-300">
-        Режим
+      <label class="flex flex-col gap-1.5">
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Режим</span>
         <select
           v-model="mode"
-          class="rounded-md border border-slate-300 px-2 py-1 text-sm dark:border-slate-700 dark:bg-slate-900"
+          class="border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         >
           <option value="range">Диапазон (CIDR)</option>
           <option value="random">Случайные</option>
         </select>
       </label>
-      <label class="flex flex-col gap-1 text-sm text-slate-600 dark:text-slate-300">
-        CIDR{{ mode === 'random' ? ' (опционально)' : '' }}
+      <label class="flex flex-col gap-1.5">
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">
+          CIDR{{ mode === 'random' ? ' (опционально)' : '' }}
+        </span>
         <input
           v-model="cidr"
           type="text"
           :placeholder="version === 'v4' ? '192.168.1.0/24' : '2001:db8::/64'"
-          class="w-56 rounded-md border border-slate-300 px-2 py-1 font-mono text-sm dark:border-slate-700 dark:bg-slate-900"
+          class="w-[220px] border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         />
       </label>
-      <label
-        v-if="mode === 'random'"
-        class="flex flex-col gap-1 text-sm text-slate-600 dark:text-slate-300"
-      >
-        Количество
+      <label v-if="mode === 'random'" class="flex flex-col gap-1.5">
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Количество</span>
         <input
           v-model.number="count"
           type="number"
           min="1"
           :max="MAX_RANDOM"
-          class="w-24 rounded-md border border-slate-300 px-2 py-1 text-sm dark:border-slate-700 dark:bg-slate-900"
+          class="w-24 border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         />
       </label>
       <label
         v-if="version === 'v4' && mode === 'range'"
-        class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300"
+        class="flex items-center gap-2 pb-2 text-[13px]"
       >
-        <input v-model="excludeNetworkBroadcast" type="checkbox" class="rounded" />
+        <input v-model="excludeNetworkBroadcast" type="checkbox" class="h-3.5 w-3.5" />
         Без сетевого/broadcast
       </label>
       <button
         type="button"
-        class="cursor-pointer rounded-md bg-slate-900 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
+        class="ml-auto cursor-pointer border border-accent bg-accent px-[18px] py-2 font-mono text-[11px] tracking-[.12em] text-onaccent uppercase transition hover:opacity-90"
         @click="generate"
       >
         Сгенерировать
       </button>
-    </div>
+    </ToolPanel>
 
-    <p v-if="error" class="text-sm text-red-600 dark:text-red-400">{{ error }}</p>
+    <p v-if="error" class="text-sm text-red-600">{{ error }}</p>
 
-    <p
-      v-else-if="mode === 'range' && results.length"
-      class="text-xs text-slate-500 dark:text-slate-400"
-    >
-      Показано {{ results.length }}{{ truncated ? ` из ${rangeSizeLabel}` : '' }} адресов
-    </p>
-
-    <div v-if="results.length" class="space-y-1">
-      <div class="flex justify-end">
-        <CopyButton :text="results.join('\n')" />
-      </div>
-      <textarea
-        readonly
-        rows="12"
-        :value="results.join('\n')"
-        class="w-full rounded-md border border-slate-300 bg-slate-50 px-3 py-2 font-mono text-sm dark:border-slate-700 dark:bg-slate-900"
-      />
-    </div>
+    <OutputBar
+      :status="
+        !error && mode === 'range' && results.length
+          ? `Показано ${results.length}${truncated ? ` из ${rangeSizeLabel}` : ''} адресов`
+          : undefined
+      "
+      :copy-text="results.length ? results.join('\n') : undefined"
+    />
+    <textarea
+      readonly
+      rows="16"
+      :value="results.join('\n')"
+      class="w-full resize-y border border-line bg-panel px-3.5 py-3 font-mono text-[13px] leading-[1.65] outline-none"
+    />
   </ToolPage>
 </template>

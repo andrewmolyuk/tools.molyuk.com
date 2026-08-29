@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>tools.molyuk.com — social image</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html,body{margin:0;background:#e9e6df}
+  body{display:flex;align-items:center;justify-content:center;min-height:100vh}
+  #og{width:1200px;height:630px;flex:0 0 auto;min-width:1200px;box-sizing:border-box;position:relative;overflow:hidden;
+      background:#f6f4ef;
+      background-image:linear-gradient(rgba(27,25,22,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(27,25,22,.05) 1px,transparent 1px);
+      background-size:42px 42px;
+      font-family:'Archivo',Helvetica,Arial,sans-serif;color:#1b1916;
+      display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  .kicker{display:flex;align-items:center;gap:12px;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:#7a7469}
+  .dot{width:12px;height:12px;background:#ff5c1a}
+  h1{margin:0;font-size:60px;line-height:1.06;letter-spacing:-.03em;font-weight:600;max-width:960px}
+  h1 span{color:#ff5c1a}
+  p{margin:26px 0 0;font-size:26px;line-height:1.45;color:#7a7469;max-width:820px}
+  .row{display:flex;align-items:flex-end;justify-content:space-between;gap:32px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{border:1px solid #dcd6c8;background:#fffdf9;padding:9px 14px;font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:#4a453e}
+  .meta{text-align:right;font-size:16px;line-height:1.9;color:#7a7469;letter-spacing:.08em;text-transform:uppercase}
+  .corner{position:absolute;width:38px;height:38px}
+  .tl{top:26px;left:26px;border-left:2px solid #ff5c1a;border-top:2px solid #ff5c1a}
+  .br{bottom:26px;right:26px;border-right:2px solid #ff5c1a;border-bottom:2px solid #ff5c1a}
+</style>
+</head>
+<body>
+  <div id="og">
+    <div class="corner tl"></div>
+    <div class="corner br"></div>
+    <div>
+      <div class="kicker mono"><span class="dot"></span>tools.molyuk.com</div>
+      <h1 style="margin-top:46px">Developer utilities that<br />run <span>in your browser</span></h1>
+      <p>Identifiers, encodings, hashes and network lists. No backend, no uploads, no telemetry.</p>
+    </div>
+    <div class="row">
+      <div class="chips mono">
+        <span class="chip">UUID</span>
+        <span class="chip">Base64</span>
+        <span class="chip">SHA-1…512</span>
+        <span class="chip">MAC</span>
+        <span class="chip">IP / CIDR</span>
+        <span class="chip">SIP URI</span>
+      </div>
+      <div class="meta mono">
+        <div>Rev 2026.08</div>
+        <div>Tools 06 · Deps 00</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

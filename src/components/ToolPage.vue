@@ -6,10 +6,10 @@ defineProps<{
 </script>
 
 <template>
-  <div class="mx-auto max-w-3xl px-6 py-10">
-    <h1 class="text-2xl font-semibold text-slate-900 dark:text-slate-100">{{ title }}</h1>
-    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ description }}</p>
-    <div class="mt-8 space-y-6">
+  <div class="w-full max-w-[1080px] flex-1 px-6 py-9 sm:px-10 sm:py-11">
+    <h1 class="m-0 text-[28px] font-semibold tracking-[-.025em] sm:text-[30px]">{{ title }}</h1>
+    <p class="mt-2.5 text-sm text-mute">{{ description }}</p>
+    <div class="mt-6 flex flex-col gap-6">
       <slot />
     </div>
   </div>

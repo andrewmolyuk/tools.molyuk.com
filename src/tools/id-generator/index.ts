@@ -5,7 +5,8 @@ export const meta: ToolMeta = {
   slug: 'id-generator',
   name: 'ID / UUID генератор',
   description: 'Генерация UUID v4',
-  icon: '🆔',
+  category: 'Идентификаторы',
+  order: 1,
 }
 
 export const component = defineAsyncComponent(() => import('./IdGenerator.vue'))

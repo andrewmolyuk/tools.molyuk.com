@@ -20,7 +20,7 @@ async function copy() {
 <template>
   <button
     type="button"
-    class="cursor-pointer rounded-md border border-slate-300 px-2.5 py-1 text-xs font-medium text-slate-600 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+    class="cursor-pointer border border-line bg-transparent px-2.5 py-1 font-mono text-[10px] tracking-[.08em] text-ink uppercase transition hover:border-accent hover:text-accent"
     @click="copy"
   >
     {{ copied ? 'Скопировано' : 'Копировать' }}

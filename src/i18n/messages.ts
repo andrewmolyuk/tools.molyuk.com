@@ -39,6 +39,7 @@ export const messages = {
       identifiers: 'Идентификаторы',
       encoding: 'Кодирование',
       network: 'Сеть',
+      text: 'Текст',
     },
     tools: {
       idGenerator: {
@@ -114,6 +115,16 @@ export const messages = {
         loading: 'Определяем…',
         error: 'Не удалось определить IP. Доступно только на задеплоенном сайте (нужен Cloudflare Worker).',
       },
+      loremIpsum: {
+        name: 'Lorem Ipsum генератор',
+        description: 'Текст-рыба: абзацы, предложения или слова',
+        unit: 'Единица',
+        unitParagraphs: 'Абзацы',
+        unitSentences: 'Предложения',
+        unitWords: 'Слова',
+        count: 'Количество',
+        startWithLorem: 'Начинать с «Lorem ipsum dolor sit amet…»',
+      },
     },
     errors: {
       invalidInput: 'Некорректный ввод',
@@ -166,6 +177,7 @@ export const messages = {
       identifiers: 'Identifiers',
       encoding: 'Encoding',
       network: 'Network',
+      text: 'Text',
     },
     tools: {
       idGenerator: {
@@ -240,6 +252,16 @@ export const messages = {
         country: 'Country (via Cloudflare)',
         loading: 'Detecting…',
         error: 'Could not detect your IP. Only works on the deployed site (needs the Cloudflare Worker).',
+      },
+      loremIpsum: {
+        name: 'Lorem Ipsum generator',
+        description: 'Placeholder text: paragraphs, sentences or words',
+        unit: 'Unit',
+        unitParagraphs: 'Paragraphs',
+        unitSentences: 'Sentences',
+        unitWords: 'Words',
+        count: 'Count',
+        startWithLorem: 'Start with "Lorem ipsum dolor sit amet…"',
       },
     },
     errors: {

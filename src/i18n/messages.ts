@@ -40,7 +40,7 @@ export const messages = {
       identifiers: 'Идентификаторы',
       encoding: 'Кодирование',
       network: 'Сеть',
-      text: 'Текст',
+      data: 'Тестовые данные',
     },
     tools: {
       idGenerator: {
@@ -133,6 +133,15 @@ export const messages = {
         count: 'Количество',
         startWithLorem: 'Начинать с «Lorem ipsum dolor sit amet…»',
       },
+      randomAddress: {
+        name: 'Генератор случайных адресов',
+        description: 'Правдоподобные фейковые адреса для тестов и разработки — текстом или JSON',
+        country: 'Страна',
+        count: 'Количество',
+        format: 'Формат',
+        formatText: 'Обычный текст',
+        formatJson: 'JSON',
+      },
     },
     errors: {
       invalidInput: 'Некорректный ввод',
@@ -186,7 +195,7 @@ export const messages = {
       identifiers: 'Identifiers',
       encoding: 'Encoding',
       network: 'Network',
-      text: 'Text',
+      data: 'Test data',
     },
     tools: {
       idGenerator: {
@@ -278,6 +287,15 @@ export const messages = {
         unitWords: 'Words',
         count: 'Count',
         startWithLorem: 'Start with "Lorem ipsum dolor sit amet…"',
+      },
+      randomAddress: {
+        name: 'Random Address Generator',
+        description: 'Plausible fake addresses for testing and development — plain text or JSON',
+        country: 'Country',
+        count: 'Count',
+        format: 'Format',
+        formatText: 'Plain text',
+        formatJson: 'JSON',
       },
     },
     errors: {

@@ -5,7 +5,7 @@ export const meta: ToolMeta = {
   slug: 'lorem-ipsum',
   nameKey: 'tools.loremIpsum.name',
   descriptionKey: 'tools.loremIpsum.description',
-  categoryId: 'text',
+  categoryId: 'data',
   order: 9,
   compute: 'client',
 }

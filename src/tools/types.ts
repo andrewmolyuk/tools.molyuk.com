@@ -1,4 +1,4 @@
-export type CategoryId = 'identifiers' | 'encoding' | 'network' | 'text'
+export type CategoryId = 'identifiers' | 'encoding' | 'network' | 'data'
 export type ComputeLocation = 'client' | 'edge'
 
 export interface ToolMeta {

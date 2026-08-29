@@ -13,7 +13,7 @@ const modules = import.meta.glob<ToolModule>('./*/index.ts', { eager: true })
 
 export const tools: ToolModule[] = Object.values(modules).sort((a, b) => a.meta.order - b.meta.order)
 
-export const CATEGORY_ORDER: CategoryId[] = ['identifiers', 'encoding', 'network', 'text']
+export const CATEGORY_ORDER: CategoryId[] = ['identifiers', 'encoding', 'network', 'data']
 
 export interface ToolGroup {
   categoryId: CategoryId

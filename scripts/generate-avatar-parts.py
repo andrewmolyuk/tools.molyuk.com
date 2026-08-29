@@ -64,6 +64,18 @@ def namespace_ids(root: ET.Element, prefix: str) -> None:
                 e.set("mask", f"url(#{prefix}-{m.group(1)})")
 
 
+def strip_ghost_opacity(root: ET.Element) -> None:
+    """The Sketch library exports some symbols (mainly Top/hair) with a
+    stray opacity="0.3..." baked onto their root group — an artifact of
+    how the symbol master looks dimmed in the design file's own page,
+    not an intentional design property. Strip it so parts render at full
+    opacity; fill-opacity (the deliberate soft-black look on eyes/mouth/
+    eyebrows) is untouched."""
+    for e in root.iter():
+        if "opacity" in e.attrib:
+            del e.attrib["opacity"]
+
+
 def inner_svg(root: ET.Element) -> str:
     return "".join(ET.tostring(child, encoding="unicode") for child in root)
 
@@ -90,6 +102,7 @@ def first_hex_fill(root: ET.Element) -> str:
 def load_part(path: Path, prefix: str):
     root = load_root(path)
     namespace_ids(root, prefix)
+    strip_ghost_opacity(root)
     placeholder = find_colorable_fill(root)
     return inner_svg(root), placeholder
 

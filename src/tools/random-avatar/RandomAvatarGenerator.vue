@@ -69,7 +69,12 @@ const labelClass = 'font-mono text-[9px] tracking-[.16em] text-mute uppercase'
         class="flex shrink-0 flex-col items-center gap-3 self-start border border-line bg-panel p-5"
       >
         <div
-          class="flex h-[240px] w-[228px] items-center justify-center overflow-hidden bg-[repeating-conic-gradient(#00000010_0%_25%,transparent_0%_50%)] bg-[length:16px_16px]"
+          class="flex h-[240px] w-[228px] items-center justify-center overflow-hidden"
+          :class="
+            config.backgroundStyle === 'transparent'
+              ? 'bg-[repeating-conic-gradient(#00000010_0%_25%,transparent_0%_50%)] bg-[length:16px_16px]'
+              : 'bg-field'
+          "
         >
           <img :src="previewUrl" width="228" height="242" alt="" class="h-full w-full" />
         </div>
@@ -98,10 +103,8 @@ const labelClass = 'font-mono text-[9px] tracking-[.16em] text-mute uppercase'
           <CopyButton :text="svgMarkup" />
         </div>
         <p class="mt-1 max-w-[228px] text-center text-[11px] leading-snug text-mute">
-          {{ t('tools.randomAvatar.credit') }}
+          🎨
           <a href="https://twitter.com/pablostanley" target="_blank" rel="noopener">Pablo Stanley</a>
-          ·
-          <a href="https://avataaars.com" target="_blank" rel="noopener">avataaars.com</a>
         </p>
       </div>
 
@@ -170,11 +173,15 @@ const labelClass = 'font-mono text-[9px] tracking-[.16em] text-mute uppercase'
               <option v-for="o in PALETTE_COLORS" :key="o.id" :value="o.id">{{ o.label }}</option>
             </select>
           </label>
-          <label class="flex items-center gap-2 pb-2 text-[13px]">
-            <input v-model="config.background" type="checkbox" class="h-3.5 w-3.5" />
-            {{ t('tools.randomAvatar.background') }}
+          <label class="flex flex-col gap-1.5">
+            <span :class="labelClass">{{ t('tools.randomAvatar.background') }}</span>
+            <select v-model="config.backgroundStyle" :class="selectClass">
+              <option value="full">{{ t('tools.randomAvatar.bgFull') }}</option>
+              <option value="circle">{{ t('tools.randomAvatar.bgCircle') }}</option>
+              <option value="transparent">{{ t('tools.randomAvatar.bgTransparent') }}</option>
+            </select>
           </label>
-          <label v-if="config.background" class="flex flex-col gap-1.5">
+          <label v-if="config.backgroundStyle !== 'transparent'" class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.bgColor') }}</span>
             <select v-model="config.bgColorId" :class="selectClass">
               <option v-for="o in PALETTE_COLORS" :key="o.id" :value="o.id">{{ o.label }}</option>

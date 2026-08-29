@@ -71,9 +71,9 @@ const labelClass = 'font-mono text-[9px] tracking-[.16em] text-mute uppercase'
         <div
           class="flex h-[240px] w-[228px] items-center justify-center overflow-hidden"
           :class="
-            config.backgroundStyle === 'transparent'
-              ? 'bg-[repeating-conic-gradient(#00000010_0%_25%,transparent_0%_50%)] bg-[length:16px_16px]'
-              : 'bg-field'
+            config.backgroundStyle === 'full'
+              ? 'bg-field'
+              : 'bg-[repeating-conic-gradient(#00000010_0%_25%,transparent_0%_50%)] bg-[length:16px_16px]'
           "
         >
           <img :src="previewUrl" width="228" height="242" alt="" class="h-full w-full" />

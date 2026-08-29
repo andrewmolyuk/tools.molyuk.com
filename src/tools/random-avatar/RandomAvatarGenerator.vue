@@ -20,7 +20,11 @@ import {
   type AvatarConfig,
 } from './avatar'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+function optLabel(o: { label: string; labelRu: string }): string {
+  return locale.value === 'ru' ? o.labelRu : o.label
+}
 
 const config = ref<AvatarConfig>(randomAvatarConfig())
 
@@ -112,61 +116,61 @@ const labelClass = 'font-mono text-[9px] tracking-[.16em] text-mute uppercase'
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.skin') }}</span>
             <select v-model="config.skinId" :class="selectClass">
-              <option v-for="o in SKIN_TONES" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in SKIN_TONES" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.hairColor') }}</span>
             <select v-model="config.hairColorId" :class="selectClass">
-              <option v-for="o in HAIR_COLORS" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in HAIR_COLORS" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.top') }}</span>
             <select v-model="config.topId" :class="selectClass">
-              <option v-for="o in TOPS" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in TOPS" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.accessory') }}</span>
             <select v-model="config.accessoryId" :class="selectClass">
-              <option v-for="o in ACCESSORIES" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in ACCESSORIES" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.facialHair') }}</span>
             <select v-model="config.facialHairId" :class="selectClass">
-              <option v-for="o in FACIAL_HAIR" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in FACIAL_HAIR" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.eyes') }}</span>
             <select v-model="config.eyesId" :class="selectClass">
-              <option v-for="o in EYES" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in EYES" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.eyebrow') }}</span>
             <select v-model="config.eyebrowId" :class="selectClass">
-              <option v-for="o in EYEBROWS" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in EYEBROWS" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.mouth') }}</span>
             <select v-model="config.mouthId" :class="selectClass">
-              <option v-for="o in MOUTHS" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in MOUTHS" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.clothes') }}</span>
             <select v-model="config.clothesId" :class="selectClass">
-              <option v-for="o in CLOTHES" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in CLOTHES" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.clothColor') }}</span>
             <select v-model="config.clothColorId" :class="selectClass">
-              <option v-for="o in PALETTE_COLORS" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in PALETTE_COLORS" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
           <label class="flex flex-col gap-1.5">
@@ -180,7 +184,7 @@ const labelClass = 'font-mono text-[9px] tracking-[.16em] text-mute uppercase'
           <label v-if="config.backgroundStyle !== 'transparent'" class="flex flex-col gap-1.5">
             <span :class="labelClass">{{ t('tools.randomAvatar.bgColor') }}</span>
             <select v-model="config.bgColorId" :class="selectClass">
-              <option v-for="o in PALETTE_COLORS" :key="o.id" :value="o.id">{{ o.label }}</option>
+              <option v-for="o in PALETTE_COLORS" :key="o.id" :value="o.id">{{ optLabel(o) }}</option>
             </select>
           </label>
         </div>

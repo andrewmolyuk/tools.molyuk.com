@@ -134,7 +134,7 @@ export const messages = {
         startWithLorem: 'Начинать с «Lorem ipsum dolor sit amet…»',
       },
       randomAddress: {
-        name: 'Генератор случайных адресов',
+        name: 'Генератор адресов',
         description: 'Правдоподобные фейковые адреса для тестов и разработки — текстом или JSON',
         country: 'Страна',
         count: 'Количество',
@@ -143,8 +143,8 @@ export const messages = {
         formatJson: 'JSON',
       },
       randomAvatar: {
-        name: 'Генератор случайных аватаров',
-        description: 'Мультяшные аватары в стиле avataaars — настройте вручную или случайно. Дизайн — Pablo Stanley',
+        name: 'Генератор аватаров',
+        description: 'Мультяшные аватары в стиле avataaars — настройте вручную или случайно. Дизайн от Pablo Stanley',
         randomize: 'Случайный',
         downloadPng: 'PNG',
         downloadSvg: 'SVG',
@@ -311,7 +311,7 @@ export const messages = {
         startWithLorem: 'Start with "Lorem ipsum dolor sit amet…"',
       },
       randomAddress: {
-        name: 'Random Address Generator',
+        name: 'Address Generator',
         description: 'Plausible fake addresses for testing and development — plain text or JSON',
         country: 'Country',
         count: 'Count',
@@ -320,7 +320,7 @@ export const messages = {
         formatJson: 'JSON',
       },
       randomAvatar: {
-        name: 'Random Avatar Generator',
+        name: 'Avatar Generator',
         description: 'Cartoon avatars in the avataaars style — tweak manually or randomize. Design by Pablo Stanley',
         randomize: 'Randomize',
         downloadPng: 'PNG',

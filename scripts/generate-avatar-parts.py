@@ -43,6 +43,173 @@ def slugify(name: str) -> str:
     return name.lower() or "item"
 
 
+def clean_label(name: str) -> str:
+    """Strip the leading '-' the source uses to sort "none" options
+    (e.g. "-Blank", "-No Hair") first in the Sketch layers panel."""
+    return name.lstrip("-").strip() or name
+
+
+# Russian labels, keyed by (category, id). Falls back to the English
+# label if a translation is missing (should only happen if a part is
+# added to the source without updating this dict).
+RU_LABELS: dict[str, dict[str, str]] = {
+    "skin": {
+        "tanned": "🍊 Загорелая",
+        "00-yellow": "👶 00 Жёлтая",
+        "05-pale": "👶🏻 05 Бледная",
+        "04-light": "👶🏼 04 Светлая",
+        "03-brown": "👶🏽 03 Смуглая",
+        "02-dark-brown": "👶🏾 02 Тёмно-смуглая",
+        "01-black": "👶🏿 01 Тёмная",
+    },
+    "hairColor": {
+        "auburn": "Каштановый",
+        "black": "Чёрный",
+        "blonde-golden": "Золотистый блонд",
+        "blonde": "Блонд",
+        "brown-dark": "Тёмно-русый",
+        "brown": "Русый",
+        "pastel-pink": "Пастельно-розовый",
+        "platinum": "Платиновый",
+        "red": "Рыжий",
+        "silver-gray": "Серебристо-серый",
+    },
+    "palette": {
+        "black": "Чёрный",
+        "blue-01": "Синий 01",
+        "blue-02": "Синий 02",
+        "blue-03": "Синий 03",
+        "gray-01": "Серый 01",
+        "gray-02": "Серый 02",
+        "heather": "Меланж",
+        "pastel-blue": "Пастельно-голубой",
+        "pastel-green": "Пастельно-зелёный",
+        "pastel-orange": "Пастельно-оранжевый",
+        "pastel-red": "Пастельно-красный",
+        "pastel-yellow": "Пастельно-жёлтый",
+        "pink": "Розовый",
+        "red": "Красный",
+        "white": "Белый",
+    },
+    "eyes": {
+        "closed": "Закрытые 😌",
+        "cry": "Плачущие 😢",
+        "default": "Обычные 😀",
+        "eye-roll": "Закатывает глаза 🙄",
+        "happy": "Счастливые 😁",
+        "hearts": "Влюблённые 😍",
+        "side": "Смотрит вбок 😒",
+        "squint": "Прищур 😊",
+        "surprised": "Удивлённые 😳",
+        "wink-wacky": "Подмигивание шальное 😜",
+        "wink": "Подмигивание 😉",
+        "x-dizzy": "В отключке 😵",
+    },
+    "mouth": {
+        "concerned": "Обеспокоенный",
+        "default": "Обычный",
+        "disbelief": "Недоверие",
+        "eating": "Ест",
+        "grimace": "Гримаса",
+        "sad": "Грустный",
+        "scream-open": "Крик",
+        "serious": "Серьёзный",
+        "smile": "Улыбка",
+        "tongue": "Язык",
+        "twinkle": "Улыбка со звёздочкой",
+        "vomit": "Тошнит",
+    },
+    "nose": {
+        "default": "Обычный",
+    },
+    "eyebrow": {
+        "angry-natural-natural": "Злые (натур.)",
+        "default-natural-natural": "Обычные (натур.)",
+        "flat-natural-natural": "Прямые (натур.)",
+        "frown-natural-natural": "Нахмуренные (натур.)",
+        "raised-excited-natural-natural": "Приподнятые (натур.)",
+        "sad-concerned-natural-natural": "Грустные (натур.)",
+        "unibrow-natural-natural": "Сросшиеся (натур.)",
+        "up-down-natural-natural": "Разной высоты (натур.)",
+        "angry-outline": "Злые (контур)",
+        "default-outline": "Обычные (контур)",
+        "raised-excited-outline": "Приподнятые (контур)",
+        "sad-concerned-outline": "Грустные (контур)",
+        "up-down-outline": "Разной высоты (контур)",
+    },
+    "accessory": {
+        "blank": "Без очков",
+        "kurt": "Курт",
+        "prescription-01": "Оправа 01",
+        "prescription-02": "Оправа 02",
+        "round": "Круглые",
+        "sunglasses": "Солнцезащитные",
+        "wayfarers": "Wayfarer",
+    },
+    "facialHair": {
+        "blank": "Без бороды",
+        "beard-light": "Лёгкая борода",
+        "beard-magestic": "Пышная борода",
+        "beard-medium": "Средняя борода",
+        "moustache-fancy": "Усы изящные",
+        "moustache-magnum": "Усы Magnum",
+    },
+    "clothes": {
+        "blazer-shirt": "Пиджак + рубашка",
+        "blazer-sweater": "Пиджак + свитер",
+        "collar-sweater": "Свитер с воротником",
+        "graphic-shirt": "Футболка с принтом",
+        "hoodie": "Худи",
+        "overall": "Комбинезон",
+        "shirt-crew-neck": "Футболка (круглый вырез)",
+        "shirt-scoop-neck": "Футболка (глубокий вырез)",
+        "shirt-v-neck": "Футболка (V-образный вырез)",
+    },
+    "top": {
+        "no-hair": "Без волос",
+        "big-hair": "Пышные волосы",
+        "bob": "Каре",
+        "bun": "Пучок",
+        "curly": "Кудрявые",
+        "curvy": "Волнистые",
+        "dreads": "Дреды",
+        "frida": "Причёска Фрида",
+        "fro-band": "Афро с повязкой",
+        "fro": "Афро",
+        "long-but-not-too-long": "Длинные (в меру)",
+        "mia-wallace": "Каре с чёлкой",
+        "shaved-sides": "Выбритые виски",
+        "straight-strand": "Прямые с прядью",
+        "straight-2": "Прямые 2",
+        "straight": "Прямые",
+        "dreads-01": "Дреды 01",
+        "dreads-02": "Дреды 02",
+        "frizzle": "Мелкие кудри",
+        "shaggy-mullet": "Шэгги-маллет",
+        "shaggy": "Шэгги",
+        "short-curly": "Короткие кудрявые",
+        "short-flat": "Короткие прямые",
+        "short-round": "Короткие округлые",
+        "short-waved": "Короткие волнистые",
+        "sides": "Виски",
+        "the-caesar-side-part": "Цезарь с пробором",
+        "the-caesar": "Цезарь",
+        "eyepatch": "Повязка на глаз",
+        "hat": "Шляпа",
+        "hijab": "Хиджаб",
+        "turban": "Тюрбан",
+        "winter-hat-1": "Зимняя шапка 1",
+        "winter-hat-2": "Зимняя шапка 2",
+        "winter-hat-3": "Зимняя шапка 3",
+        "winter-hat-4": "Зимняя шапка 4",
+    },
+}
+
+
+def ru_label(category: str, item_id: str, fallback: str) -> str:
+    return RU_LABELS.get(category, {}).get(item_id, fallback)
+
+
 def load_root(path: Path) -> ET.Element:
     return ET.parse(path).getroot()
 
@@ -76,6 +243,24 @@ def strip_ghost_opacity(root: ET.Element) -> None:
             del e.attrib["opacity"]
 
 
+def pin_mask_opacity(root: ET.Element) -> None:
+    """The app wraps each face-feature layer (mouth/eyes/eyebrows/nose)
+    in its own <g fill-opacity="0.6..."> for the intentional soft-black
+    look. fill-opacity is inherited in SVG, so without this fix that
+    same reduced opacity leaks into any <mask> defined inside the part
+    (e.g. Mouth/Tongue's teeth mask, Eyes/Squint's mask) — the mask's
+    white fill becomes partially transparent, so whatever it clips
+    renders only partially visible. Masks must stay fully opaque
+    regardless of where the fragment ends up composited, so pin it
+    explicitly on every mask and its descendants."""
+    for e in root.iter():
+        if e.tag.endswith("mask"):
+            for descendant in e.findall(".//*"):
+                if "fill-opacity" in descendant.attrib:
+                    del descendant.attrib["fill-opacity"]
+            e.set("fill-opacity", "1")
+
+
 def inner_svg(root: ET.Element) -> str:
     return "".join(ET.tostring(child, encoding="unicode") for child in root)
 
@@ -103,6 +288,7 @@ def load_part(path: Path, prefix: str):
     root = load_root(path)
     namespace_ids(root, prefix)
     strip_ghost_opacity(root)
+    pin_mask_opacity(root)
     placeholder = find_colorable_fill(root)
     return inner_svg(root), placeholder
 
@@ -123,72 +309,98 @@ def swatch(path: Path):
 
 skin_tones = []
 for stem, path in collect_parts(SRC / "Skin"):
-    skin_tones.append({"id": slugify(stem), "label": stem, "hex": swatch(path)})
+    _id = slugify(stem)
+    _label = clean_label(stem)
+    skin_tones.append({"id": _id, "label": _label, "labelRu": ru_label("skin", _id, _label), "hex": swatch(path)})
 
 hair_colors = []
 for stem, path in collect_parts(SRC / "Color" / "Hair"):
-    hair_colors.append({"id": slugify(stem), "label": stem, "hex": swatch(path)})
+    _id = slugify(stem)
+    _label = clean_label(stem)
+    hair_colors.append(
+        {"id": _id, "label": _label, "labelRu": ru_label("hairColor", _id, _label), "hex": swatch(path)}
+    )
 
 palette_colors = []
 for stem, path in collect_parts(SRC / "Color" / "Palette"):
-    palette_colors.append({"id": slugify(stem), "label": stem, "hex": swatch(path)})
+    _id = slugify(stem)
+    _label = clean_label(stem)
+    palette_colors.append(
+        {"id": _id, "label": _label, "labelRu": ru_label("palette", _id, _label), "hex": swatch(path)}
+    )
 
 # --- simple (non-colorable) parts --------------------------------------
 
 
-def build_simple(dir_path: Path, prefix: str):
+def build_simple(dir_path: Path, prefix: str, category: str):
     out = []
     for stem, path in collect_parts(dir_path):
         svg, _ = load_part(path, f"{prefix}-{next_ns()}")
-        out.append({"id": slugify(stem), "label": stem, "svg": svg})
+        _id = slugify(stem)
+        _label = clean_label(stem)
+        out.append({"id": _id, "label": _label, "labelRu": ru_label(category, _id, _label), "svg": svg})
     return out
 
 
-eyes = build_simple(SRC / "Eyes", "eyes")
-mouths = build_simple(SRC / "Mouth", "mouth")
-noses = build_simple(SRC / "Nose", "nose")
+eyes = build_simple(SRC / "Eyes", "eyes", "eyes")
+mouths = build_simple(SRC / "Mouth", "mouth", "mouth")
+noses = build_simple(SRC / "Nose", "nose", "nose")
 
 eyebrows = []
-for sub, style_label in (("Natural", "Natural"), ("Outline", "Outline")):
+for sub, suffix_en, suffix_ru in (("Natural", None, "натур."), ("Outline", "Outline", "контур")):
     for stem, path in collect_parts(SRC / "Eyebrow" / sub):
         svg, _ = load_part(path, f"eyebrow-{next_ns()}")
-        eyebrows.append({"id": slugify(f"{stem}-{sub}"), "label": f"{stem} ({style_label})", "svg": svg})
+        _id = slugify(f"{stem}-{sub}")
+        # "Natural" filenames already end with "Natural" (e.g. "Default Natural.svg") —
+        # don't double it up; "Outline" filenames don't, so the suffix disambiguates them.
+        _label = stem if suffix_en is None else f"{stem} ({suffix_en})"
+        _fallback_ru = f"{stem} ({suffix_ru})"
+        eyebrows.append({"id": _id, "label": _label, "labelRu": ru_label("eyebrow", _id, _fallback_ru), "svg": svg})
 
-accessories = build_simple(SRC / "Top" / "_Resources", "accessory")
+accessories = build_simple(SRC / "Top" / "_Resources", "accessory", "accessory")
 
 # --- colorable parts -----------------------------------------------------
 
 
-def build_colorable(dir_path: Path, prefix: str, *, hairy: bool | None = None):
+def build_colorable(dir_path: Path, prefix: str, category: str, *, hairy: bool | None = None):
     out = []
     for stem, path in collect_parts(dir_path):
         svg, placeholder = load_part(path, f"{prefix}-{next_ns()}")
-        entry = {"id": slugify(stem), "label": stem, "svg": svg, "placeholderHex": placeholder}
+        _id = slugify(stem)
+        _label = clean_label(stem)
+        entry = {
+            "id": _id,
+            "label": _label,
+            "labelRu": ru_label(category, _id, _label),
+            "svg": svg,
+            "placeholderHex": placeholder,
+        }
         if hairy is not None:
             entry["hairy"] = hairy
         out.append(entry)
     return out
 
 
-facial_hair = build_colorable(SRC / "Facial Hair", "facial-hair")
+facial_hair = build_colorable(SRC / "Facial Hair", "facial-hair", "facialHair")
 
-clothes = build_colorable(SRC / "Clothing", "clothes")
+clothes = build_colorable(SRC / "Clothing", "clothes", "clothes")
 # only top-level clothing shapes for now — the "Graphic" subfolder holds
 # printable icons for the "Graphic Shirt" garment, not separate garments
 clothes = [c for c in clothes if "/" not in c["id"]]
 
 tops = []
-tops += build_colorable(SRC / "Top", "top", hairy=False)  # non-recursive glob: only "-No Hair.svg" lives directly in Top/
-tops += build_colorable(SRC / "Top" / "Long Hair", "top-long", hairy=True)
-tops += build_colorable(SRC / "Top" / "Short Hair", "top-short", hairy=True)
-tops += build_colorable(SRC / "Top" / "Accesories", "top-hat", hairy=False)
-tops += build_colorable(SRC / "Top" / "Accessories", "top-hat2", hairy=False)
+tops += build_colorable(SRC / "Top", "top", "top", hairy=False)  # non-recursive glob: only "-No Hair.svg" lives directly in Top/
+tops += build_colorable(SRC / "Top" / "Long Hair", "top-long", "top", hairy=True)
+tops += build_colorable(SRC / "Top" / "Short Hair", "top-short", "top", hairy=True)
+tops += build_colorable(SRC / "Top" / "Accesories", "top-hat", "top", hairy=False)
+tops += build_colorable(SRC / "Top" / "Accessories", "top-hat2", "top", hairy=False)
 # hats/eyepatch/no-hair have no colorable slot (placeholderHex is None) — fine, UI just won't show a hair-color picker for them
 
 # --- body (fixed shape, skin-tone fill) ----------------------------------
 
 default_avatar = load_root(SRC / "Avatar" / "Default.svg")
 namespace_ids(default_avatar, "body")
+pin_mask_opacity(default_avatar)
 body_path_def = next(e for e in default_avatar.iter() if e.attrib.get("id") == "body-path-1")
 body_group = next(e for e in default_avatar.iter() if e.attrib.get("id") == "body-Body")
 body_skin_placeholder = None
@@ -218,12 +430,14 @@ parts.append("")
 parts.append("export interface ColorSwatch {")
 parts.append("  id: string")
 parts.append("  label: string")
+parts.append("  labelRu: string")
 parts.append("  hex: string")
 parts.append("}")
 parts.append("")
 parts.append("export interface PartOption {")
 parts.append("  id: string")
 parts.append("  label: string")
+parts.append("  labelRu: string")
 parts.append("  svg: string")
 parts.append("}")
 parts.append("")

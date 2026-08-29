@@ -243,8 +243,13 @@ def strip_ghost_opacity(root: ET.Element) -> None:
     how the symbol master looks dimmed in the design file's own page,
     not an intentional design property. Strip it so parts render at full
     opacity; fill-opacity (the deliberate soft-black look on eyes/mouth/
-    eyebrows) is untouched."""
-    for e in root.iter():
+    eyebrows) is untouched.
+
+    Only the root group carries the artifact. Nested opacity is deliberate
+    art direction — the 0.44 shine on 'Long but not too long', the 0.6
+    shadow under a blazer collar, the 0.9 folds on a hijab — so stripping
+    it wholesale flattens those layers into hard, wrongly-coloured blocks."""
+    for e in root:
         if "opacity" in e.attrib:
             del e.attrib["opacity"]
 

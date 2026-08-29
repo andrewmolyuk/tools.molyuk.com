@@ -215,6 +215,11 @@ def load_root(path: Path) -> ET.Element:
 
 
 def namespace_ids(root: ET.Element, prefix: str) -> None:
+    """Rewrite every id in the fragment to be prefix-unique, and every
+    reference to one of those ids so it still resolves after the rename:
+    xlink:href="#id", and any attribute of the form "url(#id)" — mask,
+    clip-path, filter, fill="url(#gradient)", etc. A reference attribute
+    whose id isn't found is left alone (nothing to rewrite it to)."""
     ids = {e.attrib["id"] for e in root.iter() if "id" in e.attrib}
     if not ids:
         return
@@ -224,11 +229,12 @@ def namespace_ids(root: ET.Element, prefix: str) -> None:
         href = e.attrib.get(XLINK)
         if href and href.startswith("#") and href[1:] in ids:
             e.attrib[XLINK] = f"#{prefix}-{href[1:]}"
-        mask = e.attrib.get("mask")
-        if mask:
-            m = re.match(r"url\(#(.+)\)", mask)
+        for attr, value in list(e.attrib.items()):
+            if attr in ("id", XLINK):
+                continue
+            m = re.match(r"url\(#(.+)\)$", value)
             if m and m.group(1) in ids:
-                e.set("mask", f"url(#{prefix}-{m.group(1)})")
+                e.set(attr, f"url(#{prefix}-{m.group(1)})")
 
 
 def strip_ghost_opacity(root: ET.Element) -> None:

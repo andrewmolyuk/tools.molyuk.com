@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import CopyButton from './CopyButton.vue'
+import DownloadButton from './DownloadButton.vue'
 
 const { t } = useI18n()
 
@@ -10,6 +11,7 @@ const props = withDefaults(
     status?: string
     statusClass?: string
     copyText?: string
+    downloadFilename?: string
   }>(),
   { statusClass: 'text-mute' },
 )
@@ -22,6 +24,7 @@ const props = withDefaults(
     }}</span>
     <span class="h-px flex-1 bg-line"></span>
     <span v-if="status" class="font-mono text-[10px]" :class="statusClass">{{ status }}</span>
+    <DownloadButton v-if="copyText && downloadFilename" :text="copyText" :filename="downloadFilename" />
     <CopyButton v-if="copyText" :text="copyText" />
   </div>
 </template>

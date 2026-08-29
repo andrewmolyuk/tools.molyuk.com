@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ToolPage from '../../components/ToolPage.vue'
 import OutputBar from '../../components/OutputBar.vue'
@@ -36,6 +36,11 @@ async function compute() {
 }
 
 watch(input, compute, { immediate: true })
+
+const allText = computed(() => {
+  if (!input.value) return undefined
+  return algorithms.map((algo) => `${algo}: ${results.value[algo]}`).join('\n')
+})
 </script>
 
 <template>
@@ -52,7 +57,11 @@ watch(input, compute, { immediate: true })
       />
     </div>
 
-    <OutputBar :label="t('tools.hash.digests')" />
+    <OutputBar
+      :label="t('tools.hash.digests')"
+      :copy-text="allText"
+      :download-filename="allText ? 'hashes.txt' : undefined"
+    />
     <div class="border border-line bg-panel">
       <div
         v-for="algo in algorithms"

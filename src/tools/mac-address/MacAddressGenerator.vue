@@ -85,7 +85,10 @@ generate()
       </button>
     </ToolPanel>
 
-    <OutputBar :copy-text="results.length > 1 ? results.join('\n') : undefined" />
+    <OutputBar
+      :copy-text="results.length > 1 ? results.join('\n') : undefined"
+      :download-filename="results.length > 1 ? 'mac-addresses.txt' : undefined"
+    />
     <div class="max-h-[420px] overflow-y-auto border border-line bg-panel">
       <div
         v-for="(mac, i) in results"

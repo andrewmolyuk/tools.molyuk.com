@@ -7,6 +7,7 @@ export const messages = {
       copied: 'Скопировано',
       generate: 'Сгенерировать',
       refresh: 'Обновить',
+      download: 'Скачать',
       inputPlaceholder: 'Введите данные…',
     },
     app: {
@@ -24,7 +25,7 @@ export const messages = {
       category: 'Категория',
       compute: 'Вычисление',
       computeValue: 'в браузере',
-      computeValueEdge: 'на edge (Cloudflare)',
+      computeValueEdge: 'Cloudflare',
       overview: 'Обзор',
       none: '—',
     },
@@ -75,6 +76,13 @@ export const messages = {
         description: 'Хэширование текста с помощью Web Crypto API',
         input: 'Ввод',
         digests: 'Дайджесты',
+      },
+      urlEncode: {
+        name: 'URL Encoder / Decoder',
+        description: 'Кодирование и декодирование URL (encodeURIComponent / decodeURIComponent)',
+        plainText: 'Обычный текст',
+        encodedText: 'Закодированный текст',
+        invalid: 'Некорректная последовательность %XX для декодирования',
       },
       ipList: {
         name: 'Генератор списков IP',
@@ -145,6 +153,7 @@ export const messages = {
       copied: 'Copied',
       generate: 'Generate',
       refresh: 'Refresh',
+      download: 'Download',
       inputPlaceholder: 'Enter data…',
     },
     app: {
@@ -162,7 +171,7 @@ export const messages = {
       category: 'Category',
       compute: 'Compute',
       computeValue: 'client-side',
-      computeValueEdge: 'edge (Cloudflare)',
+      computeValueEdge: 'Cloudflare',
       overview: 'Overview',
       none: '—',
     },
@@ -213,6 +222,13 @@ export const messages = {
         description: 'Hash text using the Web Crypto API',
         input: 'Input',
         digests: 'Digests',
+      },
+      urlEncode: {
+        name: 'URL Encoder / Decoder',
+        description: 'Encode and decode URLs (encodeURIComponent / decodeURIComponent)',
+        plainText: 'Plain text',
+        encodedText: 'Encoded text',
+        invalid: 'Invalid %XX sequence for decoding',
       },
       ipList: {
         name: 'IP list generator',

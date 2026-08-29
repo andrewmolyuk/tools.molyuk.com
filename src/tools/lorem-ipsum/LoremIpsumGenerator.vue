@@ -61,7 +61,7 @@ generate()
       </button>
     </ToolPanel>
 
-    <OutputBar :copy-text="output || undefined" />
+    <OutputBar :copy-text="output || undefined" :download-filename="output ? 'lorem-ipsum.txt' : undefined" />
     <textarea
       readonly
       rows="16"

@@ -60,7 +60,10 @@ generate()
       </button>
     </ToolPanel>
 
-    <OutputBar :copy-text="ids.length > 1 ? ids.map(format).join('\n') : undefined" />
+    <OutputBar
+      :copy-text="ids.length > 1 ? ids.map(format).join('\n') : undefined"
+      :download-filename="ids.length > 1 ? 'uuid-list.txt' : undefined"
+    />
     <div class="border border-line bg-panel">
       <div
         v-for="(id, i) in ids"

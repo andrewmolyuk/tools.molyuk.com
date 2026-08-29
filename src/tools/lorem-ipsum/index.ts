@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.loremIpsum.name',
   descriptionKey: 'tools.loremIpsum.description',
   categoryId: 'text',
-  order: 8,
+  order: 9,
   compute: 'client',
 }
 

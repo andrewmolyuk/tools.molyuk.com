@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ToolPage from '../../components/ToolPage.vue'
 import CopyButton from '../../components/CopyButton.vue'
+import DownloadButton from '../../components/DownloadButton.vue'
 
 const { t } = useI18n()
 
@@ -80,7 +81,13 @@ function swap() {
           <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">
             {{ mode === 'encode' ? t('tools.base64.name') : t('tools.base64.decodedText') }}
           </span>
-          <CopyButton v-if="output" :text="output" />
+          <div v-if="output" class="flex items-center gap-2">
+            <DownloadButton
+              :text="output"
+              :filename="mode === 'encode' ? 'base64.txt' : 'decoded.txt'"
+            />
+            <CopyButton :text="output" />
+          </div>
         </div>
         <textarea
           readonly

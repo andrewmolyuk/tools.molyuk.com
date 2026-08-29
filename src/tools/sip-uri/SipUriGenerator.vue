@@ -176,7 +176,10 @@ function generate() {
 
     <p v-if="error" class="text-sm text-red-600">{{ error }}</p>
 
-    <OutputBar :copy-text="results.length ? results.join('\n') : undefined" />
+    <OutputBar
+      :copy-text="results.length ? results.join('\n') : undefined"
+      :download-filename="results.length ? 'sip-uri-list.txt' : undefined"
+    />
     <textarea
       readonly
       rows="16"

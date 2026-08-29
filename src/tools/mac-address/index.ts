@@ -5,8 +5,8 @@ export const meta: ToolMeta = {
   slug: 'mac-address',
   nameKey: 'tools.macAddress.name',
   descriptionKey: 'tools.macAddress.description',
-  categoryId: 'identifiers',
-  order: 2,
+  categoryId: 'network',
+  order: 6,
   compute: 'client',
 }
 

@@ -165,7 +165,11 @@ function generate() {
 
     <p v-if="error" class="text-sm text-red-600">{{ error }}</p>
 
-    <OutputBar :status="status" :copy-text="results.length ? results.join('\n') : undefined" />
+    <OutputBar
+      :status="status"
+      :copy-text="results.length ? results.join('\n') : undefined"
+      :download-filename="results.length ? 'ip-list.txt' : undefined"
+    />
     <textarea
       readonly
       rows="16"

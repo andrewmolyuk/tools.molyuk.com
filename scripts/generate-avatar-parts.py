@@ -144,7 +144,7 @@ RU_LABELS: dict[str, dict[str, str]] = {
         "prescription-02": "Оправа 02",
         "round": "Круглые",
         "sunglasses": "Солнцезащитные",
-        "wayfarers": "Wayfarer",
+        "wayfarers": "Вайфареры",
     },
     "facialHair": {
         "blank": "Без бороды",
@@ -152,7 +152,7 @@ RU_LABELS: dict[str, dict[str, str]] = {
         "beard-magestic": "Пышная борода",
         "beard-medium": "Средняя борода",
         "moustache-fancy": "Усы изящные",
-        "moustache-magnum": "Усы Magnum",
+        "moustache-magnum": "Усы Магнум",
     },
     "clothes": {
         "blazer-shirt": "Пиджак + рубашка",

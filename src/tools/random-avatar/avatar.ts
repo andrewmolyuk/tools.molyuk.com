@@ -64,6 +64,7 @@ function recolor(svg: string, placeholderHex: string | null, hex: string): strin
   return svg.split(placeholderHex).join(hex)
 }
 
+
 export function assembleAvatarSvg(config: AvatarConfig): string {
   const skin = byId(SKIN_TONES, config.skinId)
   const hairColor = byId(HAIR_COLORS, config.hairColorId)
@@ -110,11 +111,17 @@ export function assembleAvatarSvg(config: AvatarConfig): string {
     clipOpen +
     bodyGroup +
     `<g transform="translate(0, 170)">${clothesSvg}</g>` +
+    // No fill-opacity on these wrappers: each source part already bakes the
+    // designer's intended opacity onto the exact elements that need it (the
+    // dark mouth shape, the pupils, the brow strokes) and deliberately leaves
+    // the rest opaque (white teeth, eye whites, pink tongue). A blanket
+    // fill-opacity here is inherited by those too, so overlapping parts show
+    // through each other.
     `<g transform="translate(76, 82)">` +
-    `<g transform="translate(2, 52)" fill-opacity="0.7">${mouth.svg}</g>` +
-    `<g transform="translate(28, 40)" fill-opacity="0.16">${nose.svg}</g>` +
-    `<g transform="translate(0, 8)" fill-opacity="0.6">${eyes.svg}</g>` +
-    `<g fill-opacity="0.6">${eyebrow.svg}</g>` +
+    `<g transform="translate(2, 52)">${mouth.svg}</g>` +
+    `<g transform="translate(28, 40)">${nose.svg}</g>` +
+    `<g transform="translate(0, 8)">${eyes.svg}</g>` +
+    `<g>${eyebrow.svg}</g>` +
     `</g>` +
     `<g transform="translate(-1, 0)">${topSvg}</g>` +
     `<g transform="translate(48, 72)">${facialHairSvg}</g>` +

@@ -2,6 +2,10 @@ name = "tools-molyuk-com"
 compatibility_date = "2026-08-29"
 main = "worker/index.ts"
 
+[[routes]]
+pattern = "tools.molyuk.com"
+custom_domain = true
+
 [assets]
 directory = "./dist"
 binding = "ASSETS"

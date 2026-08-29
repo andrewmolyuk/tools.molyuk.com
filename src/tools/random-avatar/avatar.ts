@@ -17,6 +17,8 @@ import {
 
 export type BackgroundStyle = 'full' | 'circle' | 'transparent'
 
+export const BACKGROUND_STYLES: BackgroundStyle[] = ['full', 'circle', 'transparent']
+
 export interface AvatarConfig {
   skinId: string
   hairColorId: string
@@ -47,7 +49,7 @@ export function randomAvatarConfig(): AvatarConfig {
     hairColorId: pick(HAIR_COLORS).id,
     clothColorId: pick(PALETTE_COLORS).id,
     bgColorId: pick(PALETTE_COLORS).id,
-    backgroundStyle: 'circle',
+    backgroundStyle: pick(BACKGROUND_STYLES),
     topId: pick(TOPS).id,
     eyesId: pick(EYES).id,
     eyebrowId: pick(EYEBROWS).id,

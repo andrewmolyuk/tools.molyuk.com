@@ -272,8 +272,31 @@ def pin_mask_opacity(root: ET.Element) -> None:
             e.set("fill-opacity", "1")
 
 
+def flatten_markup(root: ET.Element) -> None:
+    """Make the fragment serialise as plain, readable SVG.
+
+    ElementTree keeps the namespace on every tag, so tostring() emits
+    ns0:g / ns1:href plus a redundant pair of xmlns declarations on each
+    fragment. The parts are inlined into one <svg> that already declares
+    both, so drop the namespace and write xlink:href literally.
+
+    Sketch's <title> goes too: eight stray titles inside one avatar are
+    noise, and a <title> inside a group renders as a tooltip."""
+    doomed = [(p, c) for p in root.iter() for c in p if c.tag.split("}")[-1] == "title"]
+    for parent, child in doomed:
+        parent.remove(child)
+    for e in root.iter():
+        e.tag = e.tag.split("}")[-1]
+        href = e.attrib.pop(XLINK, None)
+        if href is not None:
+            e.attrib["xlink:href"] = href
+
+
 def inner_svg(root: ET.Element) -> str:
-    return "".join(ET.tostring(child, encoding="unicode") for child in root)
+    raw = "".join(ET.tostring(child, encoding="unicode") for child in root)
+    # the exports are pretty-printed; that indentation is pure weight once
+    # eight parts are concatenated into a single copied/downloaded file
+    return re.sub(r">\s+<", "><", raw).strip()
 
 
 def find_colorable_fill(root: ET.Element) -> str | None:
@@ -301,6 +324,7 @@ def load_part(path: Path, prefix: str):
     strip_ghost_opacity(root)
     pin_mask_opacity(root)
     placeholder = find_colorable_fill(root)
+    flatten_markup(root)
     return inner_svg(root), placeholder
 
 
@@ -418,8 +442,9 @@ body_skin_placeholder = None
 for e in body_group.iter():
     if e.attrib.get("fill", "").startswith("#") and e.tag.endswith("g"):
         body_skin_placeholder = e.attrib["fill"]
-body_defs_svg = ET.tostring(body_path_def, encoding="unicode")
-body_group_svg = ET.tostring(body_group, encoding="unicode")
+flatten_markup(default_avatar)
+body_defs_svg = re.sub(r">\s+<", "><", ET.tostring(body_path_def, encoding="unicode")).strip()
+body_group_svg = re.sub(r">\s+<", "><", ET.tostring(body_group, encoding="unicode")).strip()
 
 
 # --- emit -----------------------------------------------------------------

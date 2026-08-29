@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import type { ToolMeta } from './types'
+import type { CategoryId, ToolMeta } from './types'
 
 interface ToolModule {
   meta: ToolMeta
@@ -13,14 +13,14 @@ const modules = import.meta.glob<ToolModule>('./*/index.ts', { eager: true })
 
 export const tools: ToolModule[] = Object.values(modules).sort((a, b) => a.meta.order - b.meta.order)
 
-export const CATEGORY_ORDER = ['Идентификаторы', 'Кодирование', 'Сеть']
+export const CATEGORY_ORDER: CategoryId[] = ['identifiers', 'encoding', 'network']
 
 export interface ToolGroup {
-  category: string
+  categoryId: CategoryId
   tools: ToolModule[]
 }
 
-export const toolGroups: ToolGroup[] = CATEGORY_ORDER.map((category) => ({
-  category,
-  tools: tools.filter((tool) => tool.meta.category === category),
+export const toolGroups: ToolGroup[] = CATEGORY_ORDER.map((categoryId) => ({
+  categoryId,
+  tools: tools.filter((tool) => tool.meta.categoryId === categoryId),
 })).filter((group) => group.tools.length > 0)

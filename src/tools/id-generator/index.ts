@@ -3,9 +3,9 @@ import type { ToolMeta } from '../types'
 
 export const meta: ToolMeta = {
   slug: 'id-generator',
-  name: 'ID / UUID генератор',
-  description: 'Генерация UUID v4',
-  category: 'Идентификаторы',
+  nameKey: 'tools.idGenerator.name',
+  descriptionKey: 'tools.idGenerator.description',
+  categoryId: 'identifiers',
   order: 1,
 }
 

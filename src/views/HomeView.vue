@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'
 import { tools } from '../tools/registry'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -8,12 +11,9 @@ import { tools } from '../tools/registry'
     <div class="flex flex-wrap items-end justify-between gap-6">
       <div class="max-w-[520px]">
         <h1 class="m-0 text-[32px] leading-[1.08] font-semibold tracking-[-.03em] sm:text-[38px]">
-          Повседневные инструменты для тех, кто разрабатывает
+          {{ t('home.title') }}
         </h1>
-        <p class="mt-3.5 text-[15px] leading-[1.55] text-mute">
-          Идентификаторы, кодировки, хэши и сетевые списки. Всё считается в браузере — ничего не
-          выгружается и не сохраняется.
-        </p>
+        <p class="mt-3.5 text-[15px] leading-[1.55] text-mute">{{ t('home.description') }}</p>
       </div>
       <div class="text-right font-mono text-[10px] leading-[1.9] text-mute">
         <div>REV&nbsp;2026.08</div>
@@ -23,7 +23,7 @@ import { tools } from '../tools/registry'
     </div>
 
     <div class="my-9 flex items-center gap-2.5">
-      <span class="font-mono text-[9px] tracking-[.18em] text-mute uppercase">Список</span>
+      <span class="font-mono text-[9px] tracking-[.18em] text-mute uppercase">{{ t('home.index') }}</span>
       <span class="h-px flex-1 bg-line"></span>
     </div>
 
@@ -39,13 +39,13 @@ import { tools } from '../tools/registry'
             String(tool.meta.order).padStart(2, '0')
           }}</span>
           <span class="font-mono text-[9px] tracking-[.14em] text-mute uppercase">{{
-            tool.meta.category
+            t(`categories.${tool.meta.categoryId}`)
           }}</span>
         </div>
-        <div class="text-[17px] font-semibold tracking-[-.02em] text-ink">{{ tool.meta.name }}</div>
-        <p class="m-0 text-[13px] leading-[1.5] text-mute">{{ tool.meta.description }}</p>
+        <div class="text-[17px] font-semibold tracking-[-.02em] text-ink">{{ t(tool.meta.nameKey) }}</div>
+        <p class="m-0 text-[13px] leading-[1.5] text-mute">{{ t(tool.meta.descriptionKey) }}</p>
         <div class="mt-auto flex items-center gap-1.5 font-mono text-[10px] tracking-[.1em] text-mute uppercase">
-          <span class="h-px w-3.5 bg-accent"></span>Открыть
+          <span class="h-px w-3.5 bg-accent"></span>{{ t('home.open') }}
         </div>
       </RouterLink>
     </div>

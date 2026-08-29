@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ToolPage from '../../components/ToolPage.vue'
 import ToolPanel from '../../components/ToolPanel.vue'
 import OutputBar from '../../components/OutputBar.vue'
 import CopyButton from '../../components/CopyButton.vue'
 import { MAX_RANDOM, clamp } from '../ip-list/ip'
+
+const { t } = useI18n()
 
 const count = ref(10)
 const separator = ref<'colon' | 'hyphen' | 'none'>('colon')
@@ -38,10 +41,12 @@ generate()
 </script>
 
 <template>
-  <ToolPage title="MAC-адрес генератор" description="Случайные unicast MAC-адреса">
+  <ToolPage :title="t('tools.macAddress.name')" :description="t('tools.macAddress.description')">
     <ToolPanel>
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Количество</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.macAddress.count')
+        }}</span>
         <input
           v-model.number="count"
           type="number"
@@ -51,30 +56,32 @@ generate()
         />
       </label>
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Разделитель</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.macAddress.separator')
+        }}</span>
         <select
           v-model="separator"
           class="border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         >
-          <option value="colon">Двоеточие · aa:bb:cc</option>
-          <option value="hyphen">Дефис · aa-bb-cc</option>
-          <option value="none">Без разделителя · aabbcc</option>
+          <option value="colon">{{ t('tools.macAddress.sepColon') }}</option>
+          <option value="hyphen">{{ t('tools.macAddress.sepHyphen') }}</option>
+          <option value="none">{{ t('tools.macAddress.sepNone') }}</option>
         </select>
       </label>
       <label class="flex items-center gap-2 pb-2 text-[13px]">
         <input v-model="uppercase" type="checkbox" class="h-3.5 w-3.5" />
-        Заглавные
+        {{ t('tools.macAddress.uppercase') }}
       </label>
       <label class="flex items-center gap-2 pb-2 text-[13px]">
         <input v-model="locallyAdministered" type="checkbox" class="h-3.5 w-3.5" />
-        Локально администрируемый (U/L бит)
+        {{ t('tools.macAddress.localAdmin') }}
       </label>
       <button
         type="button"
         class="ml-auto cursor-pointer border border-accent bg-accent px-[18px] py-2 font-mono text-[11px] tracking-[.12em] text-onaccent uppercase transition hover:opacity-90"
         @click="generate"
       >
-        Сгенерировать
+        {{ t('common.generate') }}
       </button>
     </ToolPanel>
 

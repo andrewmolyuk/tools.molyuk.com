@@ -3,9 +3,9 @@ import type { ToolMeta } from '../types'
 
 export const meta: ToolMeta = {
   slug: 'base64',
-  name: 'Base64',
-  description: 'Кодирование и декодирование Base64',
-  category: 'Кодирование',
+  nameKey: 'tools.base64.name',
+  descriptionKey: 'tools.base64.description',
+  categoryId: 'encoding',
   order: 3,
 }
 

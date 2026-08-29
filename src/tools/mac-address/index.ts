@@ -3,9 +3,9 @@ import type { ToolMeta } from '../types'
 
 export const meta: ToolMeta = {
   slug: 'mac-address',
-  name: 'MAC-адрес генератор',
-  description: 'Случайные MAC-адреса, unicast, с настраиваемым разделителем',
-  category: 'Идентификаторы',
+  nameKey: 'tools.macAddress.name',
+  descriptionKey: 'tools.macAddress.description',
+  categoryId: 'identifiers',
   order: 2,
 }
 

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ToolPage from '../../components/ToolPage.vue'
 import ToolPanel from '../../components/ToolPanel.vue'
 import OutputBar from '../../components/OutputBar.vue'
 import { MAX_RANDOM, clamp, intToIpv4, parseIPv4Cidr } from '../ip-list/ip'
+
+const { t } = useI18n()
 
 const count = ref(10)
 
@@ -44,7 +47,7 @@ function generate() {
     if (hostMode.value === 'random-ip') {
       ipRange = hostCidr.value.trim() ? parseIPv4Cidr(hostCidr.value) : { base: 0, size: 2 ** 32 }
     } else if (!hostValue.value.trim()) {
-      throw new Error('Укажите хост')
+      throw new Error(t('errors.enterHost'))
     }
 
     const portSuffix = usePort.value ? `:${clamp(port.value, 1, 65535)}` : ''
@@ -57,19 +60,18 @@ function generate() {
       return `sip:${user}@${host}${portSuffix}`
     })
   } catch (e) {
-    error.value = e instanceof Error ? e.message : 'Некорректный ввод'
+    error.value = e instanceof Error ? e.message : t('errors.invalidInput')
   }
 }
 </script>
 
 <template>
-  <ToolPage
-    title="SIP URI генератор"
-    description="Список SIP-адресов вида sip:user@host:port для тестовых конфигов АТС/шлюзов"
-  >
+  <ToolPage :title="t('tools.sipUri.name')" :description="t('tools.sipUri.description')">
     <ToolPanel>
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Количество</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.sipUri.count')
+        }}</span>
         <input
           v-model.number="count"
           type="number"
@@ -80,17 +82,21 @@ function generate() {
       </label>
 
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Номера</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.sipUri.numbers')
+        }}</span>
         <select
           v-model="userMode"
           class="border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         >
-          <option value="sequential">Последовательные</option>
-          <option value="random">Случайные</option>
+          <option value="sequential">{{ t('tools.sipUri.sequential') }}</option>
+          <option value="random">{{ t('tools.sipUri.random') }}</option>
         </select>
       </label>
       <label v-if="userMode === 'sequential'" class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Начальный номер</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.sipUri.startNumber')
+        }}</span>
         <input
           v-model.number="startNumber"
           type="number"
@@ -99,7 +105,9 @@ function generate() {
         />
       </label>
       <label v-else class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Кол-во цифр</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.sipUri.digitCount')
+        }}</span>
         <input
           v-model.number="digitLength"
           type="number"
@@ -110,17 +118,21 @@ function generate() {
       </label>
 
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Хост</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.sipUri.host')
+        }}</span>
         <select
           v-model="hostMode"
           class="border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         >
-          <option value="fixed">Фиксированный</option>
-          <option value="random-ip">Случайный IPv4</option>
+          <option value="fixed">{{ t('tools.sipUri.hostFixed') }}</option>
+          <option value="random-ip">{{ t('tools.sipUri.hostRandomIp') }}</option>
         </select>
       </label>
       <label v-if="hostMode === 'fixed'" class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Домен / IP</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.sipUri.domainIp')
+        }}</span>
         <input
           v-model="hostValue"
           type="text"
@@ -129,7 +141,9 @@ function generate() {
         />
       </label>
       <label v-else class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">CIDR (опционально)</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.sipUri.cidrOptional')
+        }}</span>
         <input
           v-model="hostCidr"
           type="text"
@@ -140,7 +154,7 @@ function generate() {
 
       <label class="flex items-center gap-2 pb-2 text-[13px]">
         <input v-model="usePort" type="checkbox" class="h-3.5 w-3.5" />
-        Порт
+        {{ t('tools.sipUri.port') }}
       </label>
       <input
         v-if="usePort"
@@ -156,7 +170,7 @@ function generate() {
         class="ml-auto cursor-pointer border border-accent bg-accent px-[18px] py-2 font-mono text-[11px] tracking-[.12em] text-onaccent uppercase transition hover:opacity-90"
         @click="generate"
       >
-        Сгенерировать
+        {{ t('common.generate') }}
       </button>
     </ToolPanel>
 

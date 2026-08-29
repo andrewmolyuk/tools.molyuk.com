@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ToolPage from '../../components/ToolPage.vue'
 import OutputBar from '../../components/OutputBar.vue'
 import CopyButton from '../../components/CopyButton.vue'
+
+const { t } = useI18n()
 
 const algorithms = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'] as const
 
@@ -36,18 +39,20 @@ watch(input, compute, { immediate: true })
 </script>
 
 <template>
-  <ToolPage title="Hash генератор" description="Хэширование текста с помощью Web Crypto API">
+  <ToolPage :title="t('tools.hash.name')" :description="t('tools.hash.description')">
     <div class="border border-line bg-panel p-3.5">
-      <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Ввод</span>
+      <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+        t('tools.hash.input')
+      }}</span>
       <textarea
         v-model="input"
         rows="5"
-        placeholder="Введите текст…"
+        :placeholder="t('common.inputPlaceholder')"
         class="mt-2.5 w-full resize-y border border-line bg-field px-2.5 py-2.5 font-mono text-[13px] leading-relaxed outline-none"
       />
     </div>
 
-    <OutputBar label="Дайджесты" />
+    <OutputBar :label="t('tools.hash.digests')" />
     <div class="border border-line bg-panel">
       <div
         v-for="algo in algorithms"

@@ -3,9 +3,9 @@ import type { ToolMeta } from '../types'
 
 export const meta: ToolMeta = {
   slug: 'ip-list',
-  name: 'Генератор списков IP',
-  description: 'IPv4/IPv6: диапазон по CIDR или случайные адреса',
-  category: 'Сеть',
+  nameKey: 'tools.ipList.name',
+  descriptionKey: 'tools.ipList.description',
+  categoryId: 'network',
   order: 5,
 }
 

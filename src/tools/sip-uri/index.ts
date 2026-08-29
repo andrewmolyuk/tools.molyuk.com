@@ -3,9 +3,9 @@ import type { ToolMeta } from '../types'
 
 export const meta: ToolMeta = {
   slug: 'sip-uri',
-  name: 'SIP URI генератор',
-  description: 'Список sip:user@host[:port] с последовательными или случайными номерами',
-  category: 'Сеть',
+  nameKey: 'tools.sipUri.name',
+  descriptionKey: 'tools.sipUri.description',
+  categoryId: 'network',
   order: 6,
 }
 

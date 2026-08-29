@@ -1,7 +1,9 @@
+export type CategoryId = 'identifiers' | 'encoding' | 'network'
+
 export interface ToolMeta {
   slug: string
-  name: string
-  description: string
-  category: string
+  nameKey: string
+  descriptionKey: string
+  categoryId: CategoryId
   order: number
 }

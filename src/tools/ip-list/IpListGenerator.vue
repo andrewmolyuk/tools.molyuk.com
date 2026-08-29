@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ToolPage from '../../components/ToolPage.vue'
 import ToolPanel from '../../components/ToolPanel.vue'
 import OutputBar from '../../components/OutputBar.vue'
@@ -14,6 +15,8 @@ import {
   randomBigInt,
 } from './ip'
 
+const { t } = useI18n()
+
 const version = ref<'v4' | 'v6'>('v4')
 const mode = ref<'range' | 'random'>('range')
 const cidr = ref('')
@@ -24,6 +27,13 @@ const error = ref<string | null>(null)
 const results = ref<string[]>([])
 const truncated = ref(false)
 const rangeSizeLabel = ref('')
+
+const status = computed(() => {
+  if (error.value || mode.value !== 'range' || !results.value.length) return undefined
+  return truncated.value
+    ? t('tools.ipList.shownOf', { n: results.value.length, total: rangeSizeLabel.value })
+    : t('tools.ipList.shown', { n: results.value.length })
+})
 
 function generate() {
   error.value = null
@@ -82,19 +92,18 @@ function generate() {
       }
     }
   } catch (e) {
-    error.value = e instanceof Error ? e.message : 'Некорректный ввод'
+    error.value = e instanceof Error ? e.message : t('errors.invalidInput')
   }
 }
 </script>
 
 <template>
-  <ToolPage
-    title="Генератор списков IP"
-    description="IPv4 / IPv6 — диапазон по CIDR или случайные адреса"
-  >
+  <ToolPage :title="t('tools.ipList.name')" :description="t('tools.ipList.description')">
     <ToolPanel>
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Версия</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.ipList.version')
+        }}</span>
         <select
           v-model="version"
           class="border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
@@ -104,18 +113,20 @@ function generate() {
         </select>
       </label>
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Режим</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.ipList.mode')
+        }}</span>
         <select
           v-model="mode"
           class="border border-line bg-field px-2.5 py-1.5 font-mono text-[13px] outline-none"
         >
-          <option value="range">Диапазон (CIDR)</option>
-          <option value="random">Случайные</option>
+          <option value="range">{{ t('tools.ipList.modeRange') }}</option>
+          <option value="random">{{ t('tools.ipList.modeRandom') }}</option>
         </select>
       </label>
       <label class="flex flex-col gap-1.5">
         <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">
-          CIDR{{ mode === 'random' ? ' (опционально)' : '' }}
+          {{ mode === 'random' ? t('tools.ipList.cidrOptional') : t('tools.ipList.cidr') }}
         </span>
         <input
           v-model="cidr"
@@ -125,7 +136,9 @@ function generate() {
         />
       </label>
       <label v-if="mode === 'random'" class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Количество</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.ipList.count')
+        }}</span>
         <input
           v-model.number="count"
           type="number"
@@ -139,27 +152,20 @@ function generate() {
         class="flex items-center gap-2 pb-2 text-[13px]"
       >
         <input v-model="excludeNetworkBroadcast" type="checkbox" class="h-3.5 w-3.5" />
-        Без сетевого/broadcast
+        {{ t('tools.ipList.excludeNetBroadcast') }}
       </label>
       <button
         type="button"
         class="ml-auto cursor-pointer border border-accent bg-accent px-[18px] py-2 font-mono text-[11px] tracking-[.12em] text-onaccent uppercase transition hover:opacity-90"
         @click="generate"
       >
-        Сгенерировать
+        {{ t('common.generate') }}
       </button>
     </ToolPanel>
 
     <p v-if="error" class="text-sm text-red-600">{{ error }}</p>
 
-    <OutputBar
-      :status="
-        !error && mode === 'range' && results.length
-          ? `Показано ${results.length}${truncated ? ` из ${rangeSizeLabel}` : ''} адресов`
-          : undefined
-      "
-      :copy-text="results.length ? results.join('\n') : undefined"
-    />
+    <OutputBar :status="status" :copy-text="results.length ? results.join('\n') : undefined" />
     <textarea
       readonly
       rows="16"

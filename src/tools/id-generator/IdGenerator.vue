@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ToolPage from '../../components/ToolPage.vue'
 import ToolPanel from '../../components/ToolPanel.vue'
 import OutputBar from '../../components/OutputBar.vue'
 import CopyButton from '../../components/CopyButton.vue'
+
+const { t } = useI18n()
 
 const count = ref(5)
 const uppercase = ref(false)
@@ -26,13 +29,12 @@ generate()
 </script>
 
 <template>
-  <ToolPage
-    title="ID / UUID генератор"
-    description="Генерация случайных UUID v4 (crypto.randomUUID)"
-  >
+  <ToolPage :title="t('tools.idGenerator.name')" :description="t('tools.idGenerator.description')">
     <ToolPanel>
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">Количество</span>
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">{{
+          t('tools.idGenerator.count')
+        }}</span>
         <input
           v-model.number="count"
           type="number"
@@ -43,18 +45,18 @@ generate()
       </label>
       <label class="flex items-center gap-2 pb-2 text-[13px]">
         <input v-model="uppercase" type="checkbox" class="h-3.5 w-3.5" />
-        Заглавные
+        {{ t('tools.idGenerator.uppercase') }}
       </label>
       <label class="flex items-center gap-2 pb-2 text-[13px]">
         <input v-model="noDashes" type="checkbox" class="h-3.5 w-3.5" />
-        Без дефисов
+        {{ t('tools.idGenerator.noDash') }}
       </label>
       <button
         type="button"
         class="ml-auto cursor-pointer border border-accent bg-accent px-[18px] py-2 font-mono text-[11px] tracking-[.12em] text-onaccent uppercase transition hover:opacity-90"
         @click="generate"
       >
-        Сгенерировать
+        {{ t('common.generate') }}
       </button>
     </ToolPanel>
 

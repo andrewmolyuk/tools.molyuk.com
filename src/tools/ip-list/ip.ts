@@ -1,3 +1,5 @@
+import { t } from '../../i18n'
+
 export const MAX_RANGE = 65536
 export const MAX_RANDOM = 10000
 
@@ -10,12 +12,12 @@ export function clamp(n: number, min: number, max: number): number {
 
 export function ipv4ToInt(ip: string): number {
   const parts = ip.trim().split('.')
-  if (parts.length !== 4) throw new Error('Некорректный IPv4-адрес')
+  if (parts.length !== 4) throw new Error(t('errors.invalidIpv4'))
   let result = 0
   for (const part of parts) {
-    if (!/^\d{1,3}$/.test(part)) throw new Error('Некорректный IPv4-адрес')
+    if (!/^\d{1,3}$/.test(part)) throw new Error(t('errors.invalidIpv4'))
     const n = Number(part)
-    if (n > 255) throw new Error('Некорректный IPv4-адрес')
+    if (n > 255) throw new Error(t('errors.invalidIpv4'))
     result = (result << 8) | n
   }
   return result >>> 0
@@ -27,10 +29,10 @@ export function intToIpv4(n: number): string {
 
 export function parseIPv4Cidr(cidr: string): { base: number; size: number } {
   const [ipPart, prefixPart] = cidr.trim().split('/')
-  if (!ipPart) throw new Error('Укажите CIDR, например 192.168.1.0/24')
+  if (!ipPart) throw new Error(t('errors.enterCidr4'))
   const prefix = prefixPart === undefined ? 32 : Number(prefixPart)
   if (!Number.isInteger(prefix) || prefix < 0 || prefix > 32) {
-    throw new Error('Префикс должен быть от 0 до 32')
+    throw new Error(t('errors.prefixRange4'))
   }
   const ip = ipv4ToInt(ipPart)
   const size = 2 ** (32 - prefix)
@@ -44,7 +46,7 @@ export function parseIPv4Cidr(cidr: string): { base: number; size: number } {
 function expandIPv6Hextets(ip: string): string[] {
   const trimmed = ip.trim()
   if (trimmed.includes(':::') || (trimmed.match(/::/g) ?? []).length > 1) {
-    throw new Error('Некорректный IPv6-адрес')
+    throw new Error(t('errors.invalidIpv6'))
   }
   let left: string[]
   let right: string[]
@@ -57,10 +59,10 @@ function expandIPv6Hextets(ip: string): string[] {
     right = []
   }
   const missing = 8 - left.length - right.length
-  if (missing < 0) throw new Error('Некорректный IPv6-адрес')
+  if (missing < 0) throw new Error(t('errors.invalidIpv6'))
   const hextets = [...left, ...Array(missing).fill('0'), ...right]
   if (hextets.length !== 8 || hextets.some((h) => !/^[0-9a-fA-F]{1,4}$/.test(h))) {
-    throw new Error('Некорректный IPv6-адрес')
+    throw new Error(t('errors.invalidIpv6'))
   }
   return hextets
 }
@@ -105,10 +107,10 @@ export function bigIntToIPv6(n: bigint): string {
 
 export function parseIPv6Cidr(cidr: string): { base: bigint; prefix: number } {
   const [ipPart, prefixPart] = cidr.trim().split('/')
-  if (!ipPart) throw new Error('Укажите CIDR, например 2001:db8::/64')
+  if (!ipPart) throw new Error(t('errors.enterCidr6'))
   const prefix = prefixPart === undefined ? 128 : Number(prefixPart)
   if (!Number.isInteger(prefix) || prefix < 0 || prefix > 128) {
-    throw new Error('Префикс должен быть от 0 до 128')
+    throw new Error(t('errors.prefixRange6'))
   }
   const ip = ipv6ToBigInt(ipPart)
   const hostBits = BigInt(128 - prefix)

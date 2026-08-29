@@ -102,10 +102,6 @@ const labelClass = 'font-mono text-[9px] tracking-[.16em] text-mute uppercase'
           </button>
           <CopyButton :text="svgMarkup" />
         </div>
-        <p class="mt-1 max-w-[228px] text-center text-[11px] leading-snug text-mute">
-          🎨
-          <a href="https://twitter.com/pablostanley" target="_blank" rel="noopener">Pablo Stanley</a>
-        </p>
       </div>
 
       <div class="flex-1 border border-line bg-panel">

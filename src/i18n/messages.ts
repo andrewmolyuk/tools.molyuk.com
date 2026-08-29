@@ -144,7 +144,7 @@ export const messages = {
       },
       randomAvatar: {
         name: 'Генератор случайных аватаров',
-        description: 'Мультяшные аватары в стиле avataaars — настройте вручную или случайно',
+        description: 'Мультяшные аватары в стиле avataaars — настройте вручную или случайно. Дизайн — Pablo Stanley',
         randomize: 'Случайный',
         downloadPng: 'PNG',
         downloadSvg: 'SVG',
@@ -321,7 +321,7 @@ export const messages = {
       },
       randomAvatar: {
         name: 'Random Avatar Generator',
-        description: 'Cartoon avatars in the avataaars style — tweak manually or randomize',
+        description: 'Cartoon avatars in the avataaars style — tweak manually or randomize. Design by Pablo Stanley',
         randomize: 'Randomize',
         downloadPng: 'PNG',
         downloadSvg: 'SVG',

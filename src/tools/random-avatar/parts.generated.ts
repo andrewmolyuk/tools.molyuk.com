@@ -33,38 +33,38 @@ export const SKIN_TONES: ColorSwatch[] = [
   },
   {
     "id": "00-yellow",
-    "label": "👶 00 Yellow",
-    "labelRu": "👶 00 Жёлтая",
+    "label": "👶 Yellow",
+    "labelRu": "👶 Жёлтая",
     "hex": "#F8D25C"
   },
   {
     "id": "05-pale",
-    "label": "👶🏻 05 Pale",
-    "labelRu": "👶🏻 05 Бледная",
+    "label": "👶🏻 Pale",
+    "labelRu": "👶🏻 Бледная",
     "hex": "#FFDBB4"
   },
   {
     "id": "04-light",
-    "label": "👶🏼 04 Light",
-    "labelRu": "👶🏼 04 Светлая",
+    "label": "👶🏼 Light",
+    "labelRu": "👶🏼 Светлая",
     "hex": "#EDB98A"
   },
   {
     "id": "03-brown",
-    "label": "👶🏽 03 Brown",
-    "labelRu": "👶🏽 03 Смуглая",
+    "label": "👶🏽 Brown",
+    "labelRu": "👶🏽 Смуглая",
     "hex": "#D08B5B"
   },
   {
     "id": "02-dark-brown",
-    "label": "👶🏾 02 Dark Brown",
-    "labelRu": "👶🏾 02 Тёмно-смуглая",
+    "label": "👶🏾 Dark Brown",
+    "labelRu": "👶🏾 Тёмно-смуглая",
     "hex": "#AE5D29"
   },
   {
     "id": "01-black",
-    "label": "👶🏿 01 Black",
-    "labelRu": "👶🏿 01 Тёмная",
+    "label": "👶🏿 Black",
+    "labelRu": "👶🏿 Тёмная",
     "hex": "#614335"
   }
 ]

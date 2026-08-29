@@ -55,12 +55,12 @@ def clean_label(name: str) -> str:
 RU_LABELS: dict[str, dict[str, str]] = {
     "skin": {
         "tanned": "🍊 Загорелая",
-        "00-yellow": "👶 00 Жёлтая",
-        "05-pale": "👶🏻 05 Бледная",
-        "04-light": "👶🏼 04 Светлая",
-        "03-brown": "👶🏽 03 Смуглая",
-        "02-dark-brown": "👶🏾 02 Тёмно-смуглая",
-        "01-black": "👶🏿 01 Тёмная",
+        "00-yellow": "👶 Жёлтая",
+        "05-pale": "👶🏻 Бледная",
+        "04-light": "👶🏼 Светлая",
+        "03-brown": "👶🏽 Смуглая",
+        "02-dark-brown": "👶🏾 Тёмно-смуглая",
+        "01-black": "👶🏿 Тёмная",
     },
     "hairColor": {
         "auburn": "Каштановый",
@@ -345,7 +345,9 @@ def swatch(path: Path):
 skin_tones = []
 for stem, path in collect_parts(SRC / "Skin"):
     _id = slugify(stem)
-    _label = clean_label(stem)
+    # the source names skin files "👶🏽 03 Brown" — the index only orders the
+    # Sketch layers panel, it means nothing to someone picking a tone
+    _label = re.sub(r"\s\d{2}\s", " ", clean_label(stem))
     skin_tones.append({"id": _id, "label": _label, "labelRu": ru_label("skin", _id, _label), "hex": swatch(path)})
 
 hair_colors = []

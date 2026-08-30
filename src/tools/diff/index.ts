@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.diff.name',
   descriptionKey: 'tools.diff.description',
   categoryId: 'text',
-  order: 15,
+  order: 16,
   compute: 'client',
 }
 

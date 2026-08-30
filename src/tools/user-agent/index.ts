@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.userAgent.name',
   descriptionKey: 'tools.userAgent.description',
   categoryId: 'network',
-  order: 17,
+  order: 19,
   compute: 'client',
 }
 

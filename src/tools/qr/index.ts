@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.qr.name',
   descriptionKey: 'tools.qr.description',
   categoryId: 'converters',
-  order: 27,
+  order: 30,
   compute: 'client',
 }
 

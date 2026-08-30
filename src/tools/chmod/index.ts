@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.chmod.name',
   descriptionKey: 'tools.chmod.description',
   categoryId: 'converters',
-  order: 29,
+  order: 32,
   compute: 'client',
 }
 

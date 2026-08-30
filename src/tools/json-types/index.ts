@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.jsonTypes.name',
   descriptionKey: 'tools.jsonTypes.description',
   categoryId: 'converters',
-  order: 28,
+  order: 31,
   compute: 'client',
 }
 

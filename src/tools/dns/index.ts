@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.dns.name',
   descriptionKey: 'tools.dns.description',
   categoryId: 'network',
-  order: 22,
+  order: 24,
   compute: 'edge',
 }
 

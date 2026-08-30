@@ -2,6 +2,10 @@
 import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'
 import { tools } from '../tools/registry'
+import { dependencies } from '../../package.json'
+
+// Read from package.json rather than typed in: the claim has to stay true on its own.
+const DEP_COUNT = Object.keys(dependencies).length
 
 const { t } = useI18n()
 </script>
@@ -18,7 +22,7 @@ const { t } = useI18n()
       <div class="text-right font-mono text-[10px] leading-[1.9] text-mute">
         <div>REV&nbsp;2026.08</div>
         <div>TOOLS&nbsp;{{ String(tools.length).padStart(2, '0') }}</div>
-        <div>DEPS&nbsp;0</div>
+        <div>DEPS&nbsp;{{ String(DEP_COUNT).padStart(2, '0') }}</div>
       </div>
     </div>
 

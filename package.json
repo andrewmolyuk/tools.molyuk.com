@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/generate-worker-routes.mjs",
+    "prebuild": "node scripts/generate-worker-routes.mjs && npm test",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
+    "test": "node tests/run.mjs",
     "deploy": "npm run build && wrangler deploy",
     "worker:dev": "wrangler dev"
   },

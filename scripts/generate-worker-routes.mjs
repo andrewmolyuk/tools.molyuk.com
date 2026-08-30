@@ -52,15 +52,25 @@ console.log(`worker/routes.ts: ${slugs.length} routes`)
  */
 const ogFile = join(root, 'design', 'og-image.html')
 const og = readFileSync(ogFile, 'utf8')
-const shown = og.match(/Tools (\d+) · Deps (\d+)/)
+const shown = og.match(/Tools (\d+) · Deps (\d+) · Tests (\d+)/)
 const realDeps = Object.keys(JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).dependencies ?? {}).length
+let realChecks = null
+try {
+  realChecks = JSON.parse(readFileSync(join(root, 'src', 'generated', 'tests.json'), 'utf8')).checks
+} catch {
+  // The suite has never been run in this checkout; nothing to compare against yet.
+}
 
 if (!shown) {
-  console.warn('warning: design/og-image.html has no "Tools N · Deps N" line to check')
-} else if (Number(shown[1]) !== slugs.length || Number(shown[2]) !== realDeps) {
+  console.warn('warning: design/og-image.html has no "Tools N · Deps N · Tests N" line to check')
+} else if (
+  Number(shown[1]) !== slugs.length ||
+  Number(shown[2]) !== realDeps ||
+  (realChecks !== null && Number(shown[3]) !== realChecks)
+) {
   console.warn(
-    `warning: design/og-image.html says Tools ${shown[1]} · Deps ${shown[2]}, ` +
-      `but there are ${slugs.length} tools and ${realDeps} dependencies. ` +
+    `warning: design/og-image.html says Tools ${shown[1]} · Deps ${shown[2]} · Tests ${shown[3]}, ` +
+      `but there are ${slugs.length} tools, ${realDeps} dependencies and ${realChecks ?? '?'} checks. ` +
       'Update it and re-render public/og-social.png.',
   )
 }

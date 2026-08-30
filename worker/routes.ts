@@ -15,6 +15,7 @@ export const TOOL_ROUTES: ReadonlySet<string> = new Set([
   'id-generator',
   'ip-list',
   'json-format',
+  'json-types',
   'jwt',
   'lorem-ipsum',
   'mac-address',

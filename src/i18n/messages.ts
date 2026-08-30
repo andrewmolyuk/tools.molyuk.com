@@ -449,6 +449,16 @@ export const messages = {
         status_refused: 'REFUSED',
         note: 'Запрос уходит с воркера на 1.1.1.1 по DNS-over-HTTPS. Принимаются только имена хостов и известные типы записей — это резолвер, а не прокси для произвольных запросов.',
       },
+      jsonTypes: {
+        name: 'JSON → TypeScript / Go',
+        description: 'Типы и структуры из образца JSON: слияние полей, опциональность, nullable',
+        language: 'Язык',
+        rootName: 'Корневой тип',
+        goPointers: 'Указатели для опциональных полей',
+        tsTypeAlias: 'type вместо interface',
+        parseError: 'Ошибка разбора JSON',
+        note: 'Образец — это свидетельство, а не спецификация. Элементы массива сливаются: поле, которого нет хотя бы в одном, становится опциональным; целое рядом с дробным даёт float; null рядом со строкой даёт nullable. Одинаковые по структуре объекты объявляются один раз. В Go нет объединений — разнотипное поле становится any.',
+      },
       qr: {
         name: 'QR-код',
         description: 'Генератор QR-кодов в SVG — собственный кодер, версии 1–10',
@@ -935,6 +945,16 @@ export const messages = {
         status_servfail: 'SERVFAIL',
         status_refused: 'REFUSED',
         note: 'The worker queries 1.1.1.1 over DNS-over-HTTPS. Only hostnames and known record types are accepted — this is a resolver, not a general request proxy.',
+      },
+      jsonTypes: {
+        name: 'JSON → TypeScript / Go',
+        description: 'Types and structs from a JSON sample: merged fields, optionality, nullability',
+        language: 'Language',
+        rootName: 'Root type',
+        goPointers: 'Pointers for optional fields',
+        tsTypeAlias: 'type instead of interface',
+        parseError: 'JSON parse error',
+        note: 'A sample is evidence, not a specification. Array elements are merged: a field missing from any one of them becomes optional, an integer beside a float becomes a float, a null beside a string becomes nullable. Structurally identical objects are declared once. Go has no unions, so a mixed field becomes any.',
       },
       qr: {
         name: 'QR Code',

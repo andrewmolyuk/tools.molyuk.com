@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.randomAvatar.name',
   descriptionKey: 'tools.randomAvatar.description',
   categoryId: 'data',
-  order: 29,
+  order: 30,
   compute: 'client',
 }
 

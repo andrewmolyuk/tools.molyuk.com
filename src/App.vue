@@ -169,7 +169,13 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
               {{ t('header.tool') }}
             </div>
             <div class="mt-1 truncate text-sm font-semibold tracking-[-.01em]">
-              {{ activeTool ? t(activeTool.meta.nameKey) : t('header.overview') }}
+              {{
+                activeTool
+                  ? t(activeTool.meta.nameKey)
+                  : route.name === 'not-found'
+                    ? t('notFound.kicker')
+                    : t('header.overview')
+              }}
             </div>
           </div>
           <div class="border-r border-line px-3.5 py-3">
@@ -206,7 +212,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
             href="https://andrew.molyuk.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-mute underline decoration-line underline-offset-2 transition hover:text-accent hover:decoration-accent"
+            class="underline decoration-line underline-offset-2 transition hover:decoration-accent"
             >{{ t('app.footer.author') }}</a
           >
           <span aria-hidden="true">·</span>

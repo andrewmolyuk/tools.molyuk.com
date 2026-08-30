@@ -467,6 +467,14 @@ export const messages = {
         note: 'Кодер написан здесь же, без зависимостей: байтовый режим, версии 1–10, выбор маски по штрафным правилам стандарта. Перед печатью стоит проверить код телефоном.',
       },
     },
+    notFound: {
+      kicker: 'Страница не найдена',
+      description:
+        'Такого инструмента нет. Возможно, опечатка в адресе — инструменты живут прямо в корне, например /base64.',
+      requested: 'Запрошено',
+      didYouMean: 'Возможно, вы искали',
+      backHome: 'На главную',
+    },
     errors: {
       invalidInput: 'Некорректный ввод',
       enterHost: 'Укажите хост',
@@ -945,6 +953,14 @@ export const messages = {
         failed: 'Could not build the code',
         note: 'The encoder is written here, with no dependencies: byte mode, versions 1–10, mask chosen by the standard penalty rules. Worth scanning one with a phone before printing.',
       },
+    },
+    notFound: {
+      kicker: 'Page not found',
+      description:
+        'No such tool. Probably a typo — tools live at the top level, for example /base64.',
+      requested: 'Requested',
+      didYouMean: 'Did you mean',
+      backHome: 'Back to the index',
     },
     errors: {
       invalidInput: 'Invalid input',

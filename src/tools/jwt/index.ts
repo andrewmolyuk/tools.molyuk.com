@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.jwt.name',
   descriptionKey: 'tools.jwt.description',
   categoryId: 'encoding',
-  order: 6,
+  order: 7,
   compute: 'client',
 }
 

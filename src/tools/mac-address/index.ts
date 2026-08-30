@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.macAddress.name',
   descriptionKey: 'tools.macAddress.description',
   categoryId: 'network',
-  order: 17,
+  order: 18,
   compute: 'client',
 }
 

@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.cron.name',
   descriptionKey: 'tools.cron.description',
   categoryId: 'converters',
-  order: 25,
+  order: 26,
   compute: 'client',
 }
 

@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.htmlEntities.name',
   descriptionKey: 'tools.htmlEntities.description',
   categoryId: 'encoding',
-  order: 9,
+  order: 10,
   compute: 'client',
 }
 

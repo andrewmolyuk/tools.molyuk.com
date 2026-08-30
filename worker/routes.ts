@@ -4,6 +4,7 @@
 export const TOOL_ROUTES: ReadonlySet<string> = new Set([
   'base64',
   'case-convert',
+  'chmod',
   'cidr',
   'color',
   'cron',
@@ -28,6 +29,7 @@ export const TOOL_ROUTES: ReadonlySet<string> = new Set([
   'regex',
   'sip-uri',
   'timestamp',
+  'totp',
   'url-encode',
   'url-parse',
   'user-agent',

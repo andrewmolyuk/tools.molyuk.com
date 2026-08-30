@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.yaml.name',
   descriptionKey: 'tools.yaml.description',
   categoryId: 'encoding',
-  order: 8,
+  order: 9,
   compute: 'client',
 }
 

@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ToolPage from '../../components/ToolPage.vue'
 import CopyButton from '../../components/CopyButton.vue'
+import { type VerifyResult, keyKindFor, verifyJwt } from './verify'
 
 const { t } = useI18n()
 
 const input = ref('')
+const key = ref('')
+const verification = ref<VerifyResult | null>(null)
 
 /** Claims whose numeric value is a POSIX timestamp in seconds (RFC 7519 §4.1). */
 const TIME_CLAIMS = new Set(['exp', 'iat', 'nbf', 'auth_time', 'updated_at'])
@@ -61,7 +64,7 @@ const timeRows = computed(() => {
     .map(([key, value]) => ({ key, raw: value as number, human: formatTime(value as number) }))
 })
 
-/** Expiry verdict from `exp` / `nbf`. Says nothing about the signature — we never check it. */
+/** Expiry verdict from `exp` / `nbf` alone. The signature is a separate question, answered on demand below. */
 const validity = computed(() => {
   const claims = decoded.value?.claims
   if (!claims) return null
@@ -73,6 +76,29 @@ const validity = computed(() => {
   if (typeof exp === 'number') return { key: 'active', class: 'text-accent' }
   return { key: 'noExpiry', class: 'text-mute' }
 })
+
+const algorithm = computed(() => {
+  const header = decoded.value?.claims && decoded.value.header ? JSON.parse(decoded.value.header) : null
+  return header && typeof header.alg === 'string' ? header.alg : null
+})
+
+const keyKind = computed(() => keyKindFor(algorithm.value))
+
+const verdict = computed(() => {
+  const result = verification.value
+  if (!result) return null
+  const cls =
+    result.status === 'valid' ? 'text-accent'
+      : result.status === 'invalid' ? 'text-red-600'
+      : 'text-amber-600'
+  return { cls, text: t(`tools.jwt.verify_${result.status}`), detail: result.detail ?? null }
+})
+
+async function runVerify() {
+  verification.value = await verifyJwt(input.value, key.value)
+}
+
+watch([input, key], () => (verification.value = null))
 
 function loadSample() {
   input.value =
@@ -104,7 +130,34 @@ function loadSample() {
         class="mt-2.5 w-full resize-y border border-line bg-field px-2.5 py-2.5 font-mono text-[13px] leading-relaxed break-all outline-none"
         :class="invalid ? 'text-red-600' : ''"
       />
-      <p class="mt-2.5 m-0 text-[12px] leading-[1.5] text-mute">{{ t('tools.jwt.noVerify') }}</p>
+    </div>
+
+    <div v-if="decoded" class="border border-line bg-panel p-3.5">
+      <div class="flex flex-wrap items-center justify-between gap-2.5">
+        <span class="font-mono text-[9px] tracking-[.16em] text-mute uppercase">
+          {{ keyKind === 'public' ? t('tools.jwt.publicKey') : t('tools.jwt.secret') }}
+          <span v-if="algorithm" class="text-accent"> · {{ algorithm }}</span>
+        </span>
+        <button
+          type="button"
+          :disabled="!keyKind"
+          class="cursor-pointer border border-accent bg-accent px-3 py-1.5 font-mono text-[10px] tracking-[.1em] text-onaccent uppercase transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+          @click="runVerify"
+        >
+          {{ t('tools.jwt.verify') }}
+        </button>
+      </div>
+      <textarea
+        v-model="key"
+        :rows="keyKind === 'public' ? 5 : 2"
+        spellcheck="false"
+        :placeholder="keyKind === 'public' ? '-----BEGIN PUBLIC KEY-----' : t('tools.jwt.secretPlaceholder')"
+        class="mt-2.5 w-full resize-y border border-line bg-field px-2.5 py-2.5 font-mono text-[13px] leading-relaxed outline-none"
+      />
+      <p v-if="verdict" class="mt-2.5 m-0 font-mono text-[12.5px]" :class="verdict.cls">
+        {{ verdict.text }}<span v-if="verdict.detail" class="text-mute"> — {{ verdict.detail }}</span>
+      </p>
+      <p class="mt-2.5 m-0 text-[12px] leading-[1.5] text-mute">{{ t('tools.jwt.verifyNote') }}</p>
     </div>
 
     <p v-if="invalid" class="m-0 font-mono text-[12px] text-red-600">{{ t('tools.jwt.invalid') }}</p>

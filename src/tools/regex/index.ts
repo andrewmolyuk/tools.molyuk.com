@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.regex.name',
   descriptionKey: 'tools.regex.description',
   categoryId: 'text',
-  order: 13,
+  order: 14,
   compute: 'client',
 }
 

@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.hmac.name',
   descriptionKey: 'tools.hmac.description',
   categoryId: 'encoding',
-  order: 10,
+  order: 11,
   compute: 'client',
 }
 

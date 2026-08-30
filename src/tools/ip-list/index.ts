@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.ipList.name',
   descriptionKey: 'tools.ipList.description',
   categoryId: 'network',
-  order: 18,
+  order: 19,
   compute: 'client',
 }
 

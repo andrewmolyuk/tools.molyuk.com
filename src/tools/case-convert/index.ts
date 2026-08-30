@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.caseConvert.name',
   descriptionKey: 'tools.caseConvert.description',
   categoryId: 'text',
-  order: 11,
+  order: 12,
   compute: 'client',
 }
 

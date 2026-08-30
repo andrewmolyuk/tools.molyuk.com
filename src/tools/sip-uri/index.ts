@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.sipUri.name',
   descriptionKey: 'tools.sipUri.description',
   categoryId: 'network',
-  order: 17,
+  order: 20,
   compute: 'client',
 }
 

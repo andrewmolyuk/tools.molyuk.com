@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.cidr.name',
   descriptionKey: 'tools.cidr.description',
   categoryId: 'network',
-  order: 16,
+  order: 19,
   compute: 'client',
 }
 

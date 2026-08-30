@@ -1,5 +1,7 @@
 /// <reference types="@cloudflare/workers-types" />
 
+import { TOOL_ROUTES } from './routes'
+
 export interface Env {
   ASSETS: Fetcher
 }
@@ -56,6 +58,24 @@ async function dnsQuery(url: URL): Promise<Response> {
   )
 }
 
+/**
+ * Returns the SPA shell under a chosen status code.
+ *
+ * The client router renders the right screen either way; the status is what makes an
+ * unknown path an actual 404 rather than a soft one — a page that says "not found"
+ * while answering 200 still gets crawled and indexed as a real page.
+ */
+async function serveShell(env: Env, url: URL, status: number): Promise<Response> {
+  const shell = await env.ASSETS.fetch(new Request(new URL('/index.html', url).toString()))
+  return new Response(shell.body, {
+    status,
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': status === 200 ? 'public, max-age=0, must-revalidate' : 'no-store',
+    },
+  })
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
@@ -70,6 +90,18 @@ export default {
       return dnsQuery(url)
     }
 
-    return env.ASSETS.fetch(request)
+    // Static files are served before the worker is reached, so anything arriving here is
+    // either a client route or a genuine miss.
+    const slug = url.pathname.replace(/^\/+|\/+$/g, '')
+    if (slug === '' || TOOL_ROUTES.has(slug)) {
+      return serveShell(env, url, 200)
+    }
+
+    // `not_found_handling = "none"` makes this a real 404 rather than the shell, which is
+    // what lets the miss be told apart from a hit.
+    const asset = await env.ASSETS.fetch(request)
+    if (asset.status !== 404) return asset
+
+    return serveShell(env, url, 404)
   },
 } satisfies ExportedHandler<Env>

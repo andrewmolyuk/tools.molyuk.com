@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.urlEncode.name',
   descriptionKey: 'tools.urlEncode.description',
   categoryId: 'encoding',
-  order: 4,
+  order: 5,
   compute: 'client',
 }
 

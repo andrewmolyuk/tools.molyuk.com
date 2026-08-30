@@ -4,13 +4,18 @@ import { useI18n } from 'vue-i18n'
 import ToolPage from '../../components/ToolPage.vue'
 import OutputBar from '../../components/OutputBar.vue'
 import CopyButton from '../../components/CopyButton.vue'
+import { md5 } from './md5'
 
 const { t } = useI18n()
 
-const algorithms = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'] as const
+// MD5 is not in Web Crypto and is broken for anything security-bearing, but it is still
+// what mirrors and legacy APIs publish checksums in, so it ships from our own code.
+const algorithms = ['MD5', 'SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'] as const
+const WEAK = new Set(['MD5', 'SHA-1'])
 
 const input = ref('')
 const results = ref<Record<(typeof algorithms)[number], string>>({
+  MD5: '',
   'SHA-1': '',
   'SHA-256': '',
   'SHA-384': '',
@@ -30,8 +35,8 @@ async function compute() {
       results.value[algo] = ''
       continue
     }
-    const digest = await crypto.subtle.digest(algo, data)
-    results.value[algo] = toHex(digest)
+    results.value[algo] =
+      algo === 'MD5' ? md5(data) : toHex(await crypto.subtle.digest(algo, data))
   }
 }
 
@@ -68,7 +73,12 @@ const allText = computed(() => {
         :key="algo"
         class="grid grid-cols-[96px_minmax(0,1fr)_auto] items-start gap-3.5 border-b border-hair px-3.5 py-3 last:border-b-0"
       >
-        <span class="pt-0.5 font-mono text-[11px] tracking-[.06em] text-accent">{{ algo }}</span>
+        <span class="flex flex-col gap-0.5 pt-0.5">
+          <span class="font-mono text-[11px] tracking-[.06em] text-accent">{{ algo }}</span>
+          <span v-if="WEAK.has(algo)" class="font-mono text-[9px] tracking-[.06em] text-mute">{{
+            t('tools.hash.weak')
+          }}</span>
+        </span>
         <span class="font-mono text-[12.5px] leading-[1.7] break-all">{{ results[algo] || '—' }}</span>
         <CopyButton :text="results[algo]" />
       </div>

@@ -6,7 +6,7 @@ export const meta: ToolMeta = {
   nameKey: 'tools.base64.name',
   descriptionKey: 'tools.base64.description',
   categoryId: 'encoding',
-  order: 2,
+  order: 3,
   compute: 'client',
 }
 

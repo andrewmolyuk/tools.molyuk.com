@@ -201,7 +201,15 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
         <span class="font-mono text-[10px] tracking-[.1em] text-mute uppercase">
           tools.molyuk.com · vue 3 · cloudflare workers
         </span>
-        <span class="font-mono text-[10px] tracking-[.1em] text-mute uppercase">
+        <span class="flex flex-wrap items-center gap-3 font-mono text-[10px] tracking-[.1em] text-mute uppercase">
+          <a
+            href="https://andrew.molyuk.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-mute underline decoration-line underline-offset-2 transition hover:text-accent hover:decoration-accent"
+            >{{ t('app.footer.author') }}</a
+          >
+          <span aria-hidden="true">·</span>
           {{ t('app.footer.privacy') }}
         </span>
       </footer>

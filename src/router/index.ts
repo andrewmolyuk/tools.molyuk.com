@@ -7,7 +7,7 @@ export const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomeView },
     ...tools.map((tool) => ({
-      path: `/tools/${tool.meta.slug}`,
+      path: `/${tool.meta.slug}`,
       name: tool.meta.slug,
       component: tool.component,
     })),

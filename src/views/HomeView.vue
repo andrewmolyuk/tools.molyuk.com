@@ -31,7 +31,7 @@ const { t } = useI18n()
       <RouterLink
         v-for="tool in tools"
         :key="tool.meta.slug"
-        :to="`/tools/${tool.meta.slug}`"
+        :to="`/${tool.meta.slug}`"
         class="flex min-h-[150px] flex-col gap-2.5 bg-panel px-[18px] pt-5 pb-[18px] text-left transition hover:bg-paper"
       >
         <div class="flex items-center justify-between">

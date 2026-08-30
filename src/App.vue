@@ -22,7 +22,7 @@ const filteredGroups = computed(() => {
     .filter((group) => group.tools.length > 0)
 })
 
-const activeTool = computed(() => tools.find((tool) => `/tools/${tool.meta.slug}` === route.path))
+const activeTool = computed(() => tools.find((tool) => `/${tool.meta.slug}` === route.path))
 
 type Theme = 'auto' | 'light' | 'dark'
 const THEME_KEY = 'tm-theme'
@@ -100,7 +100,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
             <RouterLink
               v-for="tool in group.tools"
               :key="tool.meta.slug"
-              :to="`/tools/${tool.meta.slug}`"
+              :to="`/${tool.meta.slug}`"
               class="grid grid-cols-[26px_1fr] items-center gap-2 border-l-2 border-transparent px-2 py-1.5 text-[13px] font-medium text-ink transition hover:bg-hair"
               active-class="border-accent bg-hair"
             >

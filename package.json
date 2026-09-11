@@ -27,6 +27,6 @@
     "typescript": "~6.0.2",
     "vite": "^8.2.2",
     "vue-tsc": "^3.3.11",
-    "wrangler": "^4.127.1"
+    "wrangler": "^4.131.0"
   }
 }
